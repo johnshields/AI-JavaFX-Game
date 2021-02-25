@@ -1,4 +1,4 @@
-<h1 align="center">Gesture Based UI Development</h1>
+<h1 align="center">Artificial Intelligence</h1>
 
 
 <a href="https://www.gmit.ie/" >
