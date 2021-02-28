@@ -1,0 +1,36 @@
+FUNCTION_BLOCK fuzzy // Maps to a method
+
+    VAR_INPUT	// input params to a method
+        tempRadius : REAL;
+    END_VAR
+
+    VAR_OUTPUT  // return type from method
+        exit : REAL;
+    END_VAR
+
+    FUZZIFY tempRadius
+    	TERM cold := trian 1 6 12;
+        TERM warm := trian 6 12 18;
+        TERM hot := (12, 0) (17, 1) (18, 1);
+    END_FUZZIFY
+
+    DEFUZZIFY exit // method body
+    	TERM far := (0,0) (5,1) (10,0);
+    	TERM near := (10,0) (15,1) (20,0);
+    	TERM nearby := (20,0) (25,1) (30,0);
+    	METHOD : COG;		// Use 'Center Of Gravity' defuzzification method
+    	DEFAULT := 0;		// Default value is 0 (if no rule activates defuzzifier)
+    END_DEFUZZIFY
+
+    // Inference rules
+    RULEBLOCK No1
+    	AND : MIN;	// Use 'min' for 'and'
+    	ACT : MIN;	// Use 'min' activation method
+    	ACCU : MAX;	// Use 'max' accumulation method
+
+    	RULE 1 : IF tempRadius IS cold THEN exit IS far;
+    	RULE 2 : IF tempRadius IS warm THEN exit IS near;
+    	RULE 3 : IF tempRadius IS hot THEN exit IS nearby;
+    END_RULEBLOCK
+
+END_FUNCTION_BLOCK
