@@ -22,7 +22,7 @@ alt="GMIT Logo" width="500" height="200"/>
 ***
 
 # About the Game
-A Game that uses JFuzzyLogic and neural networks AI technologies to control a set of characters that are moving randomly through a game model.
+A Game that uses Fuzzy Logic and Neural Networks AI technologies to control a set of characters that are moving randomly through a game model.
 
 ***
 ###### END OF REAME

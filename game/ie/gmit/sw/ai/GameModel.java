@@ -89,11 +89,22 @@ public class GameModel {
 			if (model[row][col] == replace){
 				model[row][col] = enemyID;
 
-				/*
-				 * IMPORTANT! Change the following to parameterise your CharacterTask with an instance of
-				 * Command. The constructor call below is only parameterised with a lambda expression. 
-				 */
-				tasks.add(new CharacterTask(this, enemyID, row, col, ()-> System.out.println("Action executing!")));
+				// TODO - have mazeEnd = top of the maze - will need to figure out how to locate top of the maze.
+				int mazeEnd = 0;
+
+				//  Fuzzy Logic for Player
+				if (mazeEnd == 1){
+					System.out.println("Player is cold.");
+				}
+				else if (mazeEnd == 5) {
+					System.out.println("Player is warm.");
+				}
+				else if (mazeEnd == 10) {
+					System.out.println("Player is hot.");
+				}
+
+				// call in the character task and Fuzzy Logic
+				tasks.add(new CharacterTask(this, enemyID, row, col, mazeEnd, new FuzzyPlayer()));
 				counter++;
 			}
 		}

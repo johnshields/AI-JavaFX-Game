@@ -1,0 +1,42 @@
+FUNCTION_BLOCK fuzzy_player // Maps to a method
+
+    VAR_INPUT	// input params to a method
+         maze_end : REAL;
+         ghost : REAL;
+    END_VAR
+
+    VAR_OUTPUT  // return type from method
+        player : REAL;
+    END_VAR
+
+    FUZZIFY maze_end
+    	TERM far := trian 1 6 12;
+        TERM near := trian 6 12 18;
+        TERM beside := (12, 0) (17, 1) (18, 1);
+    END_FUZZIFY
+
+    // uses a singleton for ghosts interaction
+    FUZZIFY ghost
+        TERM interacting := 5;
+    END_FUZZIFY
+
+    // temperatures tell how close the player is to the maze_end
+    DEFUZZIFY player // method body
+    	TERM cold := (0, 1) (45, 0);
+    	TERM warm := trian 20.0 50.0 80.0;
+    	TERM hot := (55, 0) (100, 1);
+    	METHOD : COG;		// Use 'Center Of Gravity' defuzzification method
+    	DEFAULT := 0;		// Default value is 0 (if no rule activates defuzzifier)
+    END_DEFUZZIFY
+
+    // Inference rules
+    RULEBLOCK No1
+    	AND : MIN;	// Use 'min' for 'and'
+    	ACT : MIN;	// Use 'min' activation method
+    	ACCU : MAX;	// Use 'max' accumulation method
+    	RULE 1 : IF maze_end IS far AND ghost IS interacting THEN player IS cold;
+    	RULE 2 : IF maze_end IS near AND ghost IS interacting THEN player IS warm;
+    	RULE 3 : IF maze_end IS beside AND ghost IS interacting THEN player IS hot;
+    END_RULEBLOCK
+
+END_FUNCTION_BLOCK

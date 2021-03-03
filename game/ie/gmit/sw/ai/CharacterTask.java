@@ -36,9 +36,10 @@ public class CharacterTask extends Task<Void>{
 	private static ThreadLocalRandom rand = ThreadLocalRandom.current();
 	private boolean alive = true;
 	private GameModel model;
-	private char enemyID;
+	public static char enemyID;
 	private int row;
 	private int col;
+	public static int mazeEnd;
 
 	/*
 	 * Configure each character with its own action. Use this functional interface
@@ -46,17 +47,18 @@ public class CharacterTask extends Task<Void>{
 	 * method execute() of Command will execute when the Character cannot move to
 	 * a random adjacent cell.
 	 */
-	private Command cmd;
+	private final Command cmd;
 	
-	public CharacterTask(GameModel model, char enemyID, int row, int col, Command cmd) {
+	public CharacterTask(GameModel model, char enemyID, int row, int col, int mazeEnd, Command cmd) {
 		this.model = model;
-		this.enemyID = enemyID;
 		this.row = row;
 		this.col = col;
 		this.cmd = cmd;
+		CharacterTask.enemyID = enemyID;
+		CharacterTask.mazeEnd = mazeEnd;
 	}
-	
-    @Override
+
+	@Override
     public Void call() throws Exception {
     	/*
     	 * This Task will remain alive until the call() method returns. This
