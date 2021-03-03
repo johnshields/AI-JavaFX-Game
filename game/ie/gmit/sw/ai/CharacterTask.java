@@ -36,10 +36,10 @@ public class CharacterTask extends Task<Void>{
 	private static ThreadLocalRandom rand = ThreadLocalRandom.current();
 	private boolean alive = true;
 	private GameModel model;
-	public static char enemyID;
 	private int row;
 	private int col;
-	public static int mazeEnd;
+	public static char enemyID;
+	public static int mazeTop;
 
 	/*
 	 * Configure each character with its own action. Use this functional interface
@@ -49,13 +49,13 @@ public class CharacterTask extends Task<Void>{
 	 */
 	private final Command cmd;
 	
-	public CharacterTask(GameModel model, char enemyID, int row, int col, int mazeEnd, Command cmd) {
+	public CharacterTask(GameModel model, char enemyID, int row, int col, int mazeTop, Command cmd) {
 		this.model = model;
 		this.row = row;
 		this.col = col;
 		this.cmd = cmd;
 		CharacterTask.enemyID = enemyID;
-		CharacterTask.mazeEnd = mazeEnd;
+		CharacterTask.mazeTop = mazeTop;
 	}
 
 	@Override

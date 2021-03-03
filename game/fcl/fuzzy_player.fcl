@@ -1,7 +1,7 @@
 FUNCTION_BLOCK fuzzy_player // Maps to a method
 
     VAR_INPUT	// input params to a method
-         maze_end : REAL;
+         maze_top : REAL;
          ghost : REAL;
     END_VAR
 
@@ -9,7 +9,7 @@ FUNCTION_BLOCK fuzzy_player // Maps to a method
         player : REAL;
     END_VAR
 
-    FUZZIFY maze_end
+    FUZZIFY maze_top
     	TERM far := trian 1 6 12;
         TERM near := trian 6 12 18;
         TERM beside := (12, 0) (17, 1) (18, 1);
@@ -34,9 +34,9 @@ FUNCTION_BLOCK fuzzy_player // Maps to a method
     	AND : MIN;	// Use 'min' for 'and'
     	ACT : MIN;	// Use 'min' activation method
     	ACCU : MAX;	// Use 'max' accumulation method
-    	RULE 1 : IF maze_end IS far AND ghost IS interacting THEN player IS cold;
-    	RULE 2 : IF maze_end IS near AND ghost IS interacting THEN player IS warm;
-    	RULE 3 : IF maze_end IS beside AND ghost IS interacting THEN player IS hot;
+    	RULE 1 : IF maze_top IS far AND ghost IS interacting THEN player IS cold;
+    	RULE 2 : IF maze_top IS near AND ghost IS interacting THEN player IS warm;
+    	RULE 3 : IF maze_top IS beside AND ghost IS interacting THEN player IS hot;
     END_RULEBLOCK
 
 END_FUNCTION_BLOCK
