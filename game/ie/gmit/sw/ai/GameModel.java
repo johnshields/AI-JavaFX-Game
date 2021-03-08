@@ -89,22 +89,8 @@ public class GameModel {
 			if (model[row][col] == replace){
 				model[row][col] = enemyID;
 
-				// TODO - figure out how to locate top of the maze.
-				int mazeTop = 0;
-
-				//  Fuzzy Logic for Player
-				if (mazeTop == 1){
-					System.out.println("Player is cold.");
-				}
-				else if (mazeTop == 5) {
-					System.out.println("Player is warm.");
-				}
-				else if (mazeTop == 10) {
-					System.out.println("Player is hot.");
-				}
-
 				// call in the character task and Fuzzy Logic
-				tasks.add(new CharacterTask(this, enemyID, row, col, mazeTop, new FuzzyPlayer()));
+				tasks.add(new CharacterTask(this, enemyID, row, col, new FuzzyPlayer()));
 				counter++;
 			}
 		}

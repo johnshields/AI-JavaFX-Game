@@ -21,8 +21,8 @@ public class GameView extends Canvas{
 	private Color[] reds = {Color.SALMON, Color.CRIMSON, Color.RED}; //Animate enemy "dots" to make them easier to see
 	private static final int OFFSET = 48; //The number 0 is ASCII 48.
 	private static ThreadLocalRandom rand = ThreadLocalRandom.current();
-	private int currentRow;
-	private int currentCol;
+	public static int currentRow;
+	public static int currentCol;
 	private boolean zoom = false;
 	private int cellspan = 5;	
 	private int cellpadding = 2;

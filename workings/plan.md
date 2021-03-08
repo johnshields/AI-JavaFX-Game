@@ -3,6 +3,6 @@
 
 ## Fuzzy Logic
 ### Rules
-1. IF `maze_end` IS `far` AND `ghost` IS `interacting` THEN `player` IS `cold`
-2. IF `maze_end` IS `near` AND `ghost` IS `interacting` THEN `player` IS `warm`
-3. IF `maze_end` IS `beside` AND `ghost` IS `interacting` THEN `player` IS `hot`
+1. IF currentRow IS left AND currentCol IS bottom THEN playerLocation IS south;
+2. IF currentRow IS center AND currentCol IS middle THEN playerLocation IS center;
+3. IF currentRow IS right AND currentCol IS top THEN playerLocation IS north;

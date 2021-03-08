@@ -8,11 +8,11 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /*
- * Main UI for the game. You should not have to alter anything in this class.
+ * Main UI for the game.
  * 
  */
 public class GameWindow extends Application{
-	private static final char PLAYER_ID = '1';
+	public static char PLAYER_ID = '1';
 	private static final int DEFAULT_SIZE = 60;
 	private static final int IMAGE_COUNT = 6;
 	private GameView view;
@@ -65,12 +65,14 @@ public class GameWindow extends Application{
         
         updateView();       
     }
-	
-	private void placePlayer(){  //Place the main player character	
-    	currentRow = (int) (DEFAULT_SIZE * Math.random());
-    	currentCol = (int) (DEFAULT_SIZE * Math.random());
-    	model.set(currentRow, currentCol, PLAYER_ID); //Player is at index 1
-    	updateView(); 		
+
+	// Fuzzy Logic helps to place the player.
+	// Since the Fuzzy Logic is involved the Player takes a small bit longer to place.
+	private void placePlayer(){  //Place the main player character
+		FuzzyPlayer.currentRow = (int) (DEFAULT_SIZE * Math.random());
+		FuzzyPlayer.currentCol = (int) (DEFAULT_SIZE * Math.random());
+    	model.set(FuzzyPlayer.currentRow, FuzzyPlayer.currentCol, PLAYER_ID); //Player is at index 1
+    	updateView();
 	}
 	
 	private void updateView(){ 
