@@ -9,7 +9,6 @@ import javafx.stage.Stage;
 
 /*
  * Main UI for the game.
- * 
  */
 public class GameWindow extends Application{
 	public static char PLAYER_ID = '1';
@@ -37,7 +36,9 @@ public class GameWindow extends Application{
 		
     	Sprite[] sprites = getSprites(); //Load the sprites from the res directory
     	view.setSprites(sprites); //Add the sprites to the view
-    	placePlayer(); //Add the player
+		// Add the player
+		//FuzzyPlayer.executeFuzzyLocation();
+    	placePlayer();
     	box.getChildren().add(view);
 		
     	view.draw(); //Paint the view
@@ -66,16 +67,14 @@ public class GameWindow extends Application{
         updateView();       
     }
 
-	// Fuzzy Logic helps to place the player.
-	// Since the Fuzzy Logic is involved the Player takes a small bit longer to place.
 	private void placePlayer(){  //Place the main player character
-		FuzzyPlayer.currentRow = (int) (DEFAULT_SIZE * Math.random());
-		FuzzyPlayer.currentCol = (int) (DEFAULT_SIZE * Math.random());
-    	model.set(FuzzyPlayer.currentRow, FuzzyPlayer.currentCol, PLAYER_ID); //Player is at index 1
+		currentRow = (int) (DEFAULT_SIZE * Math.random());
+		currentCol = (int) (DEFAULT_SIZE * Math.random());
+    	model.set(currentRow, currentCol, PLAYER_ID); //Player is at index 1
     	updateView();
 	}
 	
-	private void updateView(){ 
+	private void updateView(){
 		view.setCurrentRow(currentRow);
 		view.setCurrentCol(currentCol);
 	}

@@ -14,9 +14,6 @@ import javafx.concurrent.Task;
  * instance of CharacterTask with a Command object. The implementation below uses
  * a lambda expression ()-> System.out.println("Action executing!") as the default
  * logic for the execute() method.
- * 
- * [WARNING] Don't mess with anything else in this class unless you know exactly 
- * what you're at... If you break it, you own it.
  */
 public class GameModel {
 	private static final int MAX_CHARACTERS = 10;
@@ -90,7 +87,7 @@ public class GameModel {
 				model[row][col] = enemyID;
 
 				// call in the character task and Fuzzy Logic
-				tasks.add(new CharacterTask(this, enemyID, row, col, new FuzzyPlayer()));
+				tasks.add(new CharacterTask(this, enemyID, row, col, new FuzzyCharacters()));
 				counter++;
 			}
 		}

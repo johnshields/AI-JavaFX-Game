@@ -31,72 +31,61 @@ import javafx.concurrent.Task;
  *      }
  */
 
-public class CharacterTask extends Task<Void>{
-	private static final int SLEEP_TIME = 300; //Sleep for 300 ms
-	private static ThreadLocalRandom rand = ThreadLocalRandom.current();
-	private boolean alive = true;
-	private GameModel model;
-	private int row;
-	private int col;
-	private char enemyID;
+public class CharacterTask extends Task<Void> {
+    private static final int SLEEP_TIME = 300; //Sleep for 300 ms
+    private static ThreadLocalRandom rand = ThreadLocalRandom.current();
+    private boolean alive = true;
+    private GameModel model;
+    private int row;
+    private int col;
+    public static char enemyID;
 
-	/*
-	 * Configure each character with its own action. Use this functional interface
-	 * as a hook or template to connect to your fuzzy logic and neural network. The
-	 * method execute() of Command will execute when the Character cannot move to
-	 * a random adjacent cell.
-	 */
-	private final Command cmd;
+    /*
+     * Configure each character with its own action. Use this functional interface
+     * as a hook or template to connect to your fuzzy logic and neural network. The
+     * method execute() of Command will execute when the Character cannot move to
+     * a random adjacent cell.
+     */
+    private final Command cmd;
 
-	public CharacterTask(GameModel model, char enemyID, int row, int col, Command cmd) {
-		this.model = model;
-		this.row = row;
-		this.col = col;
-		this.cmd = cmd;
-		this.enemyID = enemyID;
-	}
+    public CharacterTask(GameModel model, char enemyID, int row, int col, Command cmd) {
+        this.model = model;
+        this.row = row;
+        this.col = col;
+        this.cmd = cmd;
+        CharacterTask.enemyID = enemyID;
+    }
 
-	@Override
+    @Override
     public Void call() throws Exception {
-    	/*
-    	 * This Task will remain alive until the call() method returns. This
-    	 * cannot happen as long as the loop control variable "alive" is set
-    	 * to true. You can set this value to false to "kill" the game
-    	 * character if necessary (or maybe unnecessary...).
-    	 */
-    	while (alive) {
-        	Thread.sleep(SLEEP_TIME);
+        /*
+         * This Task will remain alive until the call() method returns. This
+         * cannot happen as long as the loop control variable "alive" is set
+         * to true.
+         */
+        while (alive) {
+            Thread.sleep(SLEEP_TIME);
 
-        	synchronized (model) {
-        		//Randomly pick a direction up, down, left or right
-        		int temp_row = row, temp_col = col;
-        		if (rand.nextBoolean()) {
-            		temp_row += rand.nextBoolean() ? 1 : -1;
-            	}else {
-            		temp_col += rand.nextBoolean() ? 1 : -1;
-            	}
+            synchronized (model) {
+                //Randomly pick a direction up, down, left or right
+                int temp_row = row, temp_col = col;
+                if (rand.nextBoolean()) {
+                    temp_row += rand.nextBoolean() ? 1 : -1;
+                } else {
+                    temp_col += rand.nextBoolean() ? 1 : -1;
+                }
 
-            	if (model.isValidMove(row, col, temp_row, temp_col, enemyID)) {
-            		/*
-            		 * This fires if the character can move to a cell, i.e. if it is not
-            		 * already occupied. You can add extra logic here to invoke
-            		 * behaviour when the computer controlled character is in the proximity
-            		 * of the player or another character...
-            		 */
-            		model.set(temp_row, temp_col, enemyID);
-            		model.set(row, col, '\u0020');
-            		row = temp_row;
-            		col = temp_col;
-            	}else {
-            		/*
-            		 * This fires if a move is not valid, i.e. if someone or some thing
-            		 * is in the way. Use implementations of Command to control how the
-            		 * computer controls this character.
-            		 */
-            		cmd.execute();
-            	}
-        	}
-    	}
-		return null;
+                if (model.isValidMove(row, col, temp_row, temp_col, enemyID)) {
+                    model.set(temp_row, temp_col, enemyID);
+                    model.set(row, col, '\u0020');
+                    row = temp_row;
+                    col = temp_col;
+                } else {
+                    model.set(FuzzyCharacters.gRow, FuzzyCharacters.gCol, enemyID);
+                    cmd.execute();
+                }
+            }
+        }
+        return null;
     }
 }
