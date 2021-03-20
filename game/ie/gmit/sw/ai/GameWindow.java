@@ -10,10 +10,9 @@ import javafx.stage.Stage;
 
 /*
  * Main UI for the game. You should not have to alter anything in this class.
- *
  */
 public class GameWindow extends Application{
-	public static final char PLAYER_ID = '1';
+	private static final char PLAYER_ID = '1';
 	private static final int DEFAULT_SIZE = 60;
 	private static final int IMAGE_COUNT = 6;
 	private GameView view;
@@ -36,8 +35,9 @@ public class GameWindow extends Application{
 		Scene scene = new Scene(box);
 		scene.setOnKeyPressed(e -> keyPressed(e)); //Add a key listener
 		stage.setScene(scene);
-		// set maze end
-		mazeEnd = (int) (DEFAULT_SIZE * Math.random());
+
+		// set maze end at top with a random index.
+		mazeEnd = (int) (60 * Math.random() + 1); // + 1 to avoid Index 0
 		System.out.println("Maze End: " + mazeEnd);
 
 		Sprite[] sprites = getSprites(); //Load the sprites from the res directory
@@ -67,13 +67,12 @@ public class GameWindow extends Application{
 		}else{
 			return;
 		}
-
 		updateView();
 
 		int playerLocation = currentRow + currentCol;
 		System.out.println("Player Location: " + playerLocation);
 
-		// if player is at the end of the maze game is won.
+		// if player is at the end of the maze (randomly generated) game is won.
 		if (playerLocation == mazeEnd) {
 			System.out.println("Player is at the End of the Maze");
 			System.out.println("Game Won!");

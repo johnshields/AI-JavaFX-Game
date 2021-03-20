@@ -2,7 +2,6 @@ package ie.gmit.sw.ai;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-import javafx.application.Platform;
 import javafx.concurrent.Task;
 
 /*
@@ -92,10 +91,9 @@ public class CharacterTask extends Task<Void>{
             	}else {
             		/*
             		* Make the Characters Fuzzy.
-					* If something or someone is in the way "eat" it.
-					* Characters eat the hedges to help the Player,
+					* Characters "eat" the hedges to help the Player,
 					*/
-					model.set(FuzzyCharacters.gRow, FuzzyCharacters.gCol, FuzzyCharacters.fuzzyChars);
+					model.set(FuzzyCharacters.gRow, FuzzyCharacters.gCol, (char) FuzzyCharacters.fuzzyEnemy);
 					model.set(row, col, '\u0020');
 					row = temp_row;
 					col = temp_col;
