@@ -1,6 +1,7 @@
 package ie.gmit.sw.ai;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -9,7 +10,7 @@ import javafx.stage.Stage;
 
 /*
  * Main UI for the game. You should not have to alter anything in this class.
- * 
+ *
  */
 public class GameWindow extends Application{
 	public static final char PLAYER_ID = '1';
@@ -19,70 +20,84 @@ public class GameWindow extends Application{
 	private GameModel model;
 	private int currentRow;
 	private int currentCol;
+	private int mazeEnd;
 
 	@Override
-    public void start(Stage stage) throws Exception {
+	public void start(Stage stage) throws Exception {
 		model = new GameModel(DEFAULT_SIZE); //Create a model
-    	view = new GameView(model); //Create a view of the model
+		view = new GameView(model); //Create a view of the model
 
-    	stage.setTitle("GMIT - B.Sc. in Computing (Software Development) - AI Assignment 2021");
+		stage.setTitle("Autonomous Game || John Shields");
 		stage.setWidth(600);
 		stage.setHeight(630);
 		stage.setOnCloseRequest((e) -> model.tearDown()); //Shut down the executor service
-    	
+
 		VBox box = new VBox();
 		Scene scene = new Scene(box);
 		scene.setOnKeyPressed(e -> keyPressed(e)); //Add a key listener
 		stage.setScene(scene);
-		
-    	Sprite[] sprites = getSprites(); //Load the sprites from the res directory
-    	view.setSprites(sprites); //Add the sprites to the view
-    	placePlayer(); //Add the player
-    	box.getChildren().add(view);
-		
-    	view.draw(); //Paint the view
-    	
+		// set maze end
+		mazeEnd = (int) (DEFAULT_SIZE * Math.random());
+		System.out.println("Maze End: " + mazeEnd);
+
+		Sprite[] sprites = getSprites(); //Load the sprites from the res directory
+		view.setSprites(sprites); //Add the sprites to the view
+		placePlayer(); //Add the player
+		box.getChildren().add(view);
+
+		view.draw(); //Paint the view
+
 		//Display the window
 		stage.show();
 		stage.centerOnScreen();
 	}
-	
-    public void keyPressed(KeyEvent e) { //Handle key events
-    	KeyCode key = e.getCode(); 
-        if (key == KeyCode.RIGHT && currentCol < DEFAULT_SIZE - 1) {
-        	if (model.isValidMove(currentRow, currentCol, currentRow, currentCol + 1, PLAYER_ID)) currentCol++;   		
-        }else if (key == KeyCode.LEFT && currentCol > 0) {
-        	if (model.isValidMove(currentRow, currentCol, currentRow, currentCol - 1, PLAYER_ID)) currentCol--;	
-        }else if (key == KeyCode.UP && currentRow > 0) {
-        	if (model.isValidMove(currentRow, currentCol, currentRow - 1, currentCol, PLAYER_ID)) currentRow--;
-        }else if (key == KeyCode.DOWN && currentRow < DEFAULT_SIZE - 1) {
-        	if (model.isValidMove(currentRow, currentCol, currentRow + 1, currentCol, PLAYER_ID)) currentRow++;        	  	
-        }else if (key == KeyCode.Z){
-        	view.toggleZoom();
-        }else{
-        	return;
-        }
-        
-        updateView();       
-    }
-	
-	private void placePlayer(){  //Place the main player character	
-    	currentRow = (int) (DEFAULT_SIZE * Math.random());
-    	currentCol = (int) (DEFAULT_SIZE * Math.random());
-    	model.set(currentRow, currentCol, PLAYER_ID); //Player is at index 1
-    	updateView(); 		
+
+	public void keyPressed(KeyEvent e) { //Handle key events
+		KeyCode key = e.getCode();
+		if (key == KeyCode.RIGHT && currentCol < DEFAULT_SIZE - 1) {
+			if (model.isValidMove(currentRow, currentCol, currentRow, currentCol + 1, PLAYER_ID)) currentCol++;
+		}else if (key == KeyCode.LEFT && currentCol > 0) {
+			if (model.isValidMove(currentRow, currentCol, currentRow, currentCol - 1, PLAYER_ID)) currentCol--;
+		}else if (key == KeyCode.UP && currentRow > 0) {
+			if (model.isValidMove(currentRow, currentCol, currentRow - 1, currentCol, PLAYER_ID)) currentRow--;
+		}else if (key == KeyCode.DOWN && currentRow < DEFAULT_SIZE - 1) {
+			if (model.isValidMove(currentRow, currentCol, currentRow + 1, currentCol, PLAYER_ID)) currentRow++;
+		}else if (key == KeyCode.Z){
+			view.toggleZoom();
+		}else{
+			return;
+		}
+
+		updateView();
+
+		int playerLocation = currentRow + currentCol;
+		System.out.println("Player Location: " + playerLocation);
+
+		// if player is at the end of the maze game is won.
+		if (playerLocation == mazeEnd) {
+			System.out.println("Player is at the End of the Maze");
+			System.out.println("Game Won!");
+			Platform.exit();
+		}
 	}
-	
-	private void updateView(){ 
+
+	private void placePlayer(){  //Place the main player character	
+		currentRow = (int) (DEFAULT_SIZE * Math.random());
+		currentCol = (int) (DEFAULT_SIZE * Math.random());
+		model.set(currentRow, currentCol, PLAYER_ID); //Player is at index 1
+		updateView();
+	}
+
+	private void updateView(){
 		view.setCurrentRow(currentRow);
 		view.setCurrentCol(currentCol);
 	}
-	
+
 	private Sprite[] getSprites() throws Exception{
 		/*
 		 * Read in the images from the resources directory as sprites. Each sprite is
-		 * referenced by its index in the array, e.g. a 3 implies a Pink Enemy... Ideally, 
-		 * the array should dynamically created from the images... 
+		 * referenced by its index in the array, e.g. a 3 implies a Pink Enemy... Ideally,
+		 * the array should dynamically created from the images...
 		 */
 		Sprite[] sprites = new Sprite[IMAGE_COUNT];
 		sprites[0] = new Sprite("Player", "/res/player-0.png", "/res/player-1.png", "/res/player-2.png", "/res/player-3.png", "/res/player-4.png", "/res/player-5.png", "/res/player-6.png", "/res/player-7.png");

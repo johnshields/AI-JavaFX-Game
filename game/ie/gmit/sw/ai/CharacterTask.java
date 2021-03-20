@@ -40,8 +40,6 @@ public class CharacterTask extends Task<Void>{
 	private char enemyID;
 	private int row;
 	private int col;
-	private int playerLives = 10;
-	private int hit = 1;
 
 
 	/*
@@ -101,17 +99,6 @@ public class CharacterTask extends Task<Void>{
 					model.set(row, col, '\u0020');
 					row = temp_row;
 					col = temp_col;
-
-					if (row + col == GameWindow.PLAYER_ID){
-						playerLives = playerLives - hit;
-						// kill off player and close the GUI.
-						if (playerLives == 0)
-						{
-							System.out.println("You Died!");
-							Platform.exit();
-						}
-						System.out.println("Lives:" + playerLives);
-					}
 					cmd.execute();
             	}
         	}
