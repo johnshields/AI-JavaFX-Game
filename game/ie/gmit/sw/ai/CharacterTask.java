@@ -95,14 +95,12 @@ public class CharacterTask extends Task<Void>{
             		/*
             		* Make the Characters Fuzzy.
 					* If something or someone is in the way "eat" it.
-					* Characters eat the hedges but leave the colliders
-					* to make the Game harder for the player.
+					* Characters eat the hedges to help the Player,
 					*/
-					model.set(FuzzyCharacters.gRow,FuzzyCharacters.gCol, FuzzyCharacters.fuzzyChars);
+					model.set(FuzzyCharacters.gRow, FuzzyCharacters.gCol, FuzzyCharacters.fuzzyChars);
 					model.set(row, col, '\u0020');
-					// replace temp rows and cols
-					FuzzyCharacters.gRow = temp_row;
-					FuzzyCharacters.gCol = temp_col;
+					row = temp_row;
+					col = temp_col;
 
 					if (row + col == GameWindow.PLAYER_ID){
 						playerLives = playerLives - hit;
@@ -112,7 +110,7 @@ public class CharacterTask extends Task<Void>{
 							System.out.println("You Died!");
 							Platform.exit();
 						}
-						System.out.println(playerLives);
+						System.out.println("Lives:" + playerLives);
 					}
 					cmd.execute();
             	}
