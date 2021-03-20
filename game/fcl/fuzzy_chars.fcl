@@ -11,23 +11,23 @@ FUNCTION_BLOCK fuzzy_chars // Maps to a method
 
     // TERMS based on DEFAULT_SIZE from GameWindow
     FUZZIFY currentRow
-    	TERM left := 0;
-        TERM center := 30;
-        TERM right := 55;
+    	TERM left := 6;
+        TERM center := 16;
+        TERM right := 32;
     END_FUZZIFY
 
     // TERMS based on DEFAULT_SIZE from GameWindow
     FUZZIFY currentCol
-        TERM bottom := 0;
-        TERM middle := 30;
-        TERM top := 55;
+        TERM bottom := 3;
+        TERM middle := 15;
+        TERM top := 30;
     END_FUZZIFY
 
     // TERMS based on DEFAULT_SIZE from GameWindow
     DEFUZZIFY location // method body
-    	TERM south := 10;
-    	TERM center := 30;
-    	TERM north := 55;
+    	TERM south := 2;
+    	TERM center := 15;
+    	TERM north := 32;
     	METHOD : COGS; // Suegno
     	DEFAULT := 5;
     END_DEFUZZIFY

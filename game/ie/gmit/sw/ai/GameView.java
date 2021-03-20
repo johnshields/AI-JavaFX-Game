@@ -10,6 +10,9 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
+/*
+ * [WARNING] Don't mess with this class unless you know exactly what you're at... 
+ */
 public class GameView extends Canvas{ 
 	public static final int DEFAULT_VIEW_SIZE = 600;	
 	private static final Color PLAYER_COLOUR = Color.YELLOW;
@@ -18,8 +21,8 @@ public class GameView extends Canvas{
 	private Color[] reds = {Color.SALMON, Color.CRIMSON, Color.RED}; //Animate enemy "dots" to make them easier to see
 	private static final int OFFSET = 48; //The number 0 is ASCII 48.
 	private static ThreadLocalRandom rand = ThreadLocalRandom.current();
-	public static int currentRow;
-	public static int currentCol;
+	private int currentRow;
+	private int currentCol;
 	private boolean zoom = false;
 	private int cellspan = 5;	
 	private int cellpadding = 2;

@@ -8,10 +8,11 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /*
- * Main UI for the game.
+ * Main UI for the game. You should not have to alter anything in this class.
+ * 
  */
 public class GameWindow extends Application{
-	public static char PLAYER_ID = '1';
+	public static final char PLAYER_ID = '1';
 	private static final int DEFAULT_SIZE = 60;
 	private static final int IMAGE_COUNT = 6;
 	private GameView view;
@@ -24,7 +25,7 @@ public class GameWindow extends Application{
 		model = new GameModel(DEFAULT_SIZE); //Create a model
     	view = new GameView(model); //Create a view of the model
 
-    	stage.setTitle("Autonomous Game | John Shields - G00348436");
+    	stage.setTitle("GMIT - B.Sc. in Computing (Software Development) - AI Assignment 2021");
 		stage.setWidth(600);
 		stage.setHeight(630);
 		stage.setOnCloseRequest((e) -> model.tearDown()); //Shut down the executor service
@@ -36,9 +37,7 @@ public class GameWindow extends Application{
 		
     	Sprite[] sprites = getSprites(); //Load the sprites from the res directory
     	view.setSprites(sprites); //Add the sprites to the view
-		// Add the player
-		//FuzzyPlayer.executeFuzzyLocation();
-    	placePlayer();
+    	placePlayer(); //Add the player
     	box.getChildren().add(view);
 		
     	view.draw(); //Paint the view
@@ -66,15 +65,15 @@ public class GameWindow extends Application{
         
         updateView();       
     }
-
-	private void placePlayer(){  //Place the main player character
-		currentRow = (int) (DEFAULT_SIZE * Math.random());
-		currentCol = (int) (DEFAULT_SIZE * Math.random());
+	
+	private void placePlayer(){  //Place the main player character	
+    	currentRow = (int) (DEFAULT_SIZE * Math.random());
+    	currentCol = (int) (DEFAULT_SIZE * Math.random());
     	model.set(currentRow, currentCol, PLAYER_ID); //Player is at index 1
-    	updateView();
+    	updateView(); 		
 	}
 	
-	private void updateView(){
+	private void updateView(){ 
 		view.setCurrentRow(currentRow);
 		view.setCurrentCol(currentCol);
 	}
@@ -86,12 +85,11 @@ public class GameWindow extends Application{
 		 * the array should dynamically created from the images... 
 		 */
 		Sprite[] sprites = new Sprite[IMAGE_COUNT];
-		sprites[0] = new Sprite("Player", "/res/images/player-0.png", "/res/images/player-1.png", "/res/images/player-2.png", "/res/images/player-3.png", "/res/images/player-4.png", "/res/images/player-5.png", "/res/images/player-6.png", "/res/images/player-7.png");
-		sprites[1] = new Sprite("Red Enemy", "/res/images/red-0.png", "/res/images/red-1.png", "/res/images/red-2.png", "/res/images/red-3.png", "/res/images/red-4.png", "/res/images/red-5.png", "/res/images/red-6.png", "/res/images/red-7.png");
-		sprites[2] = new Sprite("Pink Enemy", "/res/images/pink-0.png", "/res/images/pink-1.png", "/res/images/pink-2.png", "/res/images/pink-3.png", "/res/images/pink-4.png", "/res/images/pink-5.png", "/res/images/pink-6.png", "/res/images/pink-7.png");
-		sprites[3] = new Sprite("Blue Enemy", "/res/images/blue-0.png", "/res/images/blue-1.png", "/res/images/blue-2.png", "/res/images/blue-3.png", "/res/images/blue-4.png", "/res/images/blue-5.png", "/res/images/blue-6.png", "/res/images/blue-7.png");
-		sprites[4] = new Sprite("Red Green Enemy", "/res/images/gred-0.png", "/res/images/gred-1.png", "/res/images/gred-2.png", "/res/images/gred-3.png", "/res/images/gred-4.png", "/res/images/gred-5.png", "/res/images/gred-6.png", "/res/images/gred-7.png");
-		sprites[5] = new Sprite("Orange Enemy", "/res/images/orange-0.png", "/res/images/orange-1.png", "/res/images/orange-2.png", "/res/images/orange-3.png", "/res/images/orange-4.png", "/res/images/orange-5.png", "/res/images/orange-6.png", "/res/images/orange-7.png");
-		return sprites;
+		sprites[0] = new Sprite("Player", "/res/player-0.png", "/res/player-1.png", "/res/player-2.png", "/res/player-3.png", "/res/player-4.png", "/res/player-5.png", "/res/player-6.png", "/res/player-7.png");
+		sprites[1] = new Sprite("Red Enemy", "/res/red-0.png", "/res/red-1.png", "/res/red-2.png", "/res/red-3.png", "/res/red-4.png", "/res/red-5.png", "/res/red-6.png", "/res/red-7.png");
+		sprites[2] = new Sprite("Pink Enemy", "/res/pink-0.png", "/res/pink-1.png", "/res/pink-2.png", "/res/pink-3.png", "/res/pink-4.png", "/res/pink-5.png", "/res/pink-6.png", "/res/pink-7.png");
+		sprites[3] = new Sprite("Blue Enemy", "/res/blue-0.png", "/res/blue-1.png", "/res/blue-2.png", "/res/blue-3.png", "/res/blue-4.png", "/res/blue-5.png", "/res/blue-6.png", "/res/blue-7.png");
+		sprites[4] = new Sprite("Red Green Enemy", "/res/gred-0.png", "/res/gred-1.png", "/res/gred-2.png", "/res/gred-3.png", "/res/gred-4.png", "/res/gred-5.png", "/res/gred-6.png", "/res/gred-7.png");
+		sprites[5] = new Sprite("Orange Enemy", "/res/orange-0.png", "/res/orange-1.png", "/res/orange-2.png", "/res/orange-3.png", "/res/orange-4.png", "/res/orange-5.png", "/res/orange-6.png", "/res/orange-7.png");		return sprites;
 	}
 }

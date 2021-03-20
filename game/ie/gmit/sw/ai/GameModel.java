@@ -8,17 +8,10 @@ import java.util.concurrent.ThreadLocalRandom;
 
 import javafx.concurrent.Task;
 
-/*
- * [READ THIS CAREFULLY]
- * You will need to change the method addGameCharacter() below and configure each 
- * instance of CharacterTask with a Command object. The implementation below uses
- * a lambda expression ()-> System.out.println("Action executing!") as the default
- * logic for the execute() method.
- */
 public class GameModel {
 	private static final int MAX_CHARACTERS = 10;
 	private ThreadLocalRandom rand = ThreadLocalRandom.current();
-	private char[][] model;
+	public static char[][] model;
 	
 	private final ExecutorService exec = Executors.newFixedThreadPool(MAX_CHARACTERS, e -> {
         Thread t = new Thread(e);
@@ -86,7 +79,10 @@ public class GameModel {
 			if (model[row][col] == replace){
 				model[row][col] = enemyID;
 
-				// call in the character task and Fuzzy Logic
+				/*
+				 * IMPORTANT! Change the following to parameterise your CharacterTask with an instance of
+				 * Command. The constructor call below is only parameterised with a lambda expression. 
+				 */ //()-> System.out.println("Action executing!")
 				tasks.add(new CharacterTask(this, enemyID, row, col, new FuzzyCharacters()));
 				counter++;
 			}

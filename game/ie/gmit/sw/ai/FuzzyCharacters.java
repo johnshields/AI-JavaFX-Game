@@ -8,8 +8,8 @@ public class FuzzyCharacters implements Command{
 
     public static int gRow;
     public static int gCol;
-    static char fuzzyChars = CharacterTask.enemyID;
-    Variable ghostLocation;
+    public static char fuzzyChars;
+    Variable location;
 
     public double getLocation(double currRow, double currCol) {
         // Load and parse the FCL
@@ -22,9 +22,9 @@ public class FuzzyCharacters implements Command{
         fis.setVariable("currentCol", currCol);
         // Execute the fuzzy inference engine
         fis.evaluate();
-        ghostLocation = fb.getVariable("location");
+        location = fb.getVariable("location");
         // Use defuzzification method
-        return ghostLocation.getValue();
+        return location.getValue();
     }
 
     @Override
