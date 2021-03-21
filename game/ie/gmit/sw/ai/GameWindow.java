@@ -28,7 +28,7 @@ public class GameWindow extends Application {
         model = new GameModel(DEFAULT_SIZE); //Create a model
         view = new GameView(model); //Create a view of the model
 
-        stage.setTitle("Autonomous Game || John Shields");
+        stage.setTitle("Autonomous Game || John Shields - G00348436");
         stage.setWidth(600);
         stage.setHeight(630);
         stage.setOnCloseRequest((e) -> model.tearDown()); //Shut down the executor service
@@ -71,31 +71,32 @@ public class GameWindow extends Application {
         }
         updateView();
 
-        // get player location
+
+        // get Player Location
         playerLocation = currentRow + currentCol;
         // Fuzzy Logic helps Player find the exit.
         TempRadius fc = new TempRadius();
         // Set inputs
         int fuzzyValue = fc.getTempRadius(playerLocation, mazeExit);
+        // Working out Player's location.
         System.out.println("Player Location: " + playerLocation + "\nFuzzy Value: " + fuzzyValue);
 
-        // Used player location as well as fuzzyValue to avoid
-        // affecting if statement when value is 0.
-        if (fuzzyValue == 120 || playerLocation > 30) {
-            GameView.PLAYER_COLOUR = Color.BLUE;
+        // if statement to use getTempRadius return value to determinate the Player's tempRadius.
+        // When in range of the mazeExit.
+        if (fuzzyValue >= 120) {
+            GameView.PLAYER_COLOUR = Color.CYAN;
             System.out.println("Player is cold");
-        } else if (fuzzyValue == 29 || playerLocation > 15) {
+        } else if (fuzzyValue >= 30) {
             GameView.PLAYER_COLOUR = Color.YELLOW;
             System.out.println("Player is warm");
-        } else if (fuzzyValue == 20 || playerLocation > 10) {
+        } else if (fuzzyValue >= 10) {
             GameView.PLAYER_COLOUR = Color.CRIMSON;
             System.out.println("Player is hot");
         }
         // if Player is at the exit of the maze (randomly generated) game is won.
         if (playerLocation == mazeExit) {
             System.out.println("You escaped the Maze!\nGame Won!");
-            // Exit GUI.
-            Platform.exit();
+            Platform.exit(); // Exit GUI.
         }
     }
 

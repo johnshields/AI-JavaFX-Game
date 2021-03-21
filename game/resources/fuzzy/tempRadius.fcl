@@ -9,9 +9,9 @@ FUNCTION_BLOCK tempRadius // Maps to a method
         player : REAL;
     END_VAR
 
-    // Terms based on mazeExit from GameWindow
+    // Terms based on working out player's location in keyPressed - GameWindow.
     FUZZIFY playerLocation
-        TERM noWhereNear := 130; // too stop value being out of range
+        TERM noWhereNear := 130; // to stop variable being out of range when the player in placed.
     	TERM southEast := 50;
     	TERM south := 40;
     	TERM southWest := 30;
@@ -27,7 +27,8 @@ FUNCTION_BLOCK tempRadius // Maps to a method
         TERM indexSpotTwo := (10,0) (15,1) (20,0);
         TERM indexSpotThree := (20,0) (25,1) (30,0);
      END_FUZZIFY
-
+     
+    // TODO - have TERMs in a range like mazeExit
     // temperatures tell how close the player is to the mazeExit
     DEFUZZIFY player // method body
         TERM freezing := 150;
@@ -41,7 +42,7 @@ FUNCTION_BLOCK tempRadius // Maps to a method
     	DEFAULT := 0;		// Default value is 0 (if no rule activates defuzzifier)
     END_DEFUZZIFY
 
-    // Inference rules - Used a Brute Force approach to cover all possible mazeExits
+    // Inference rules set - Used a Brute Force approach to cover all possible mazeExits.
     RULEBLOCK No1
     	AND : MIN;	// Use 'min' for 'and'
     	ACT : MIN;	// Use 'min' activation method

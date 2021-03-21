@@ -100,11 +100,11 @@ public class CharacterTask extends Task<Void>{
 					{
 						int hit = 1;
 						lives = lives - hit;
-						System.out.println("Player Lives: " + lives);
+						//System.out.println("Player Lives: " + lives);
 						// Kill off Player and exit GUI.
 						if (lives == 0) {
 							System.out.println("Game Lost!\nYou Died!");
-							Platform.exit();
+							//Platform.exit();
 						}
 					}
 				}else {
