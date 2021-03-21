@@ -1,8 +1,11 @@
 package ie.gmit.sw.ai;
 
 import javafx.application.Application;
+import net.sourceforge.jFuzzyLogic.FIS;
 
 public class Runner {
+	public static FIS fis;
+
 	public static void main(String[] args) {
 		/*
 		 * PLEASE READ CAREFULLY
@@ -18,11 +21,14 @@ public class Runner {
 		 * available and configured on the MODULE-PATH (NOT THE 
 		 * CLASSPATH). 
 		 */
-		
-		  //Add long-running initialisation instructions here.
-		
-		
-		
+
+		// Load and Parse FCL file
+		fis = FIS.load("fcl/fuzzy_chars.fcl", true);
+		if(fis == null ) {
+			System.err.println("Can't load file: fuzzy_chars.fcl");
+			return;
+		}
+
 		/*
 		 * Launch the JavaFX UI only when all the long-running AI 
 		 * configuration tasks have been completed. Use the arrow 

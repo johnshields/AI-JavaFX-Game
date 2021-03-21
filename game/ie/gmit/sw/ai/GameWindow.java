@@ -17,9 +17,10 @@ public class GameWindow extends Application{
 	private static final int IMAGE_COUNT = 6;
 	private GameView view;
 	private GameModel model;
-	private int currentRow;
-	private int currentCol;
-	private int mazeEnd;
+	public static int currentRow;
+	public static int currentCol;
+	public static int mazeExit;
+	public static int playerLocation;
 
 	@Override
 	public void start(Stage stage) throws Exception {
@@ -36,9 +37,9 @@ public class GameWindow extends Application{
 		scene.setOnKeyPressed(e -> keyPressed(e)); //Add a key listener
 		stage.setScene(scene);
 
-		// set maze end at top with a random index.
-		mazeEnd = (int) (60 * Math.random() + 1); // + 1 to avoid Index 0
-		System.out.println("Maze End: " + mazeEnd);
+		// set mazeExit at random index.
+		mazeExit = (int) (10 * Math.random() + 1); // + 1 to avoid Index 0
+		//System.out.println("Maze Exit: " + mazeExit);
 
 		Sprite[] sprites = getSprites(); //Load the sprites from the res directory
 		view.setSprites(sprites); //Add the sprites to the view
@@ -69,13 +70,28 @@ public class GameWindow extends Application{
 		}
 		updateView();
 
-		int playerLocation = currentRow + currentCol;
-		System.out.println("Player Location: " + playerLocation);
+		playerLocation = currentRow + currentCol;
+		//System.out.println("Player Location: " + playerLocation);
+		// Fuzzy Logic helps Player find the exit
+		FuzzyPlayer fc = new FuzzyPlayer();
+		//System.out.println("Fuzzy Value: " + fc.getTempRadius(playerLocation));
 
-		// if player is at the end of the maze (randomly generated) game is won.
-		if (playerLocation == mazeEnd) {
-			System.out.println("Player is at the End of the Maze");
-			System.out.println("Game Won!");
+		if(fc.getTempRadius(playerLocation) == 120)
+		{
+			System.out.println("Player is cold");
+		}
+		if(fc.getTempRadius(playerLocation) == 60)
+		{
+			System.out.println("Player is warm");
+		}
+		if(fc.getTempRadius(playerLocation) == 10)
+		{
+			System.out.println("Player is hot");
+		}
+		// if Player is at the exit of the maze (randomly generated) game is won.
+		if (playerLocation == mazeExit) {
+			System.out.println("You escaped the Maze!\nGame Won!");
+			// Exit GUI.
 			Platform.exit();
 		}
 	}
@@ -104,6 +120,7 @@ public class GameWindow extends Application{
 		sprites[2] = new Sprite("Pink Enemy", "/res/pink-0.png", "/res/pink-1.png", "/res/pink-2.png", "/res/pink-3.png", "/res/pink-4.png", "/res/pink-5.png", "/res/pink-6.png", "/res/pink-7.png");
 		sprites[3] = new Sprite("Blue Enemy", "/res/blue-0.png", "/res/blue-1.png", "/res/blue-2.png", "/res/blue-3.png", "/res/blue-4.png", "/res/blue-5.png", "/res/blue-6.png", "/res/blue-7.png");
 		sprites[4] = new Sprite("Red Green Enemy", "/res/gred-0.png", "/res/gred-1.png", "/res/gred-2.png", "/res/gred-3.png", "/res/gred-4.png", "/res/gred-5.png", "/res/gred-6.png", "/res/gred-7.png");
-		sprites[5] = new Sprite("Orange Enemy", "/res/orange-0.png", "/res/orange-1.png", "/res/orange-2.png", "/res/orange-3.png", "/res/orange-4.png", "/res/orange-5.png", "/res/orange-6.png", "/res/orange-7.png");		return sprites;
+		sprites[5] = new Sprite("Orange Enemy", "/res/orange-0.png", "/res/orange-1.png", "/res/orange-2.png", "/res/orange-3.png", "/res/orange-4.png", "/res/orange-5.png", "/res/orange-6.png", "/res/orange-7.png");
+		return sprites;
 	}
 }

@@ -93,7 +93,7 @@ public class GameModel {
 				 * IMPORTANT! Change the following to parameterise your CharacterTask with an instance of
 				 * Command. The constructor call below is only parameterised with a lambda expression.
 				 */
-				tasks.add(new CharacterTask(this, enemyID, row, col, new FuzzyCharacters()));
+				tasks.add(new CharacterTask(this, enemyID, row, col, new NeuralCharacters()));
 				counter++;
 			}
 		}

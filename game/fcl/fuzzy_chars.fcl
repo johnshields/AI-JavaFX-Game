@@ -1,35 +1,26 @@
 FUNCTION_BLOCK fuzzy_chars // Maps to a method
 
     VAR_INPUT	// input params to a method
-         currentRow : REAL;
-         currentCol : REAL;
+         maze_exit : REAL;
     END_VAR
 
     VAR_OUTPUT  // return type from method
-        location : REAL;
+        player : REAL;
     END_VAR
 
-    // TERMS based on DEFAULT_SIZE from GameWindow
-    FUZZIFY currentRow
-    	TERM left := 6;
-        TERM center := 16;
-        TERM right := 32;
+    FUZZIFY maze_exit
+    	TERM far := 30;
+        TERM near := 15;
+        TERM beside := 10;
     END_FUZZIFY
 
-    // TERMS based on DEFAULT_SIZE from GameWindow
-    FUZZIFY currentCol
-        TERM bottom := 3;
-        TERM middle := 15;
-        TERM top := 30;
-    END_FUZZIFY
-
-    // TERMS based on DEFAULT_SIZE from GameWindow
-    DEFUZZIFY location // method body
-    	TERM south := 2;
-    	TERM center := 15;
-    	TERM north := 32;
-    	METHOD : COGS; // Suegno
-    	DEFAULT := 5;
+    // temperatures tell how close the player is to the maze_end
+    DEFUZZIFY player // method body
+    	TERM cold := 120;
+    	TERM warm := 60;
+    	TERM hot := 10;
+    	METHOD : COGS;		// Use 'Center Of Gravity' defuzzification method
+    	DEFAULT := 0;		// Default value is 0 (if no rule activates defuzzifier)
     END_DEFUZZIFY
 
     // Inference rules
@@ -37,9 +28,9 @@ FUNCTION_BLOCK fuzzy_chars // Maps to a method
     	AND : MIN;	// Use 'min' for 'and'
     	ACT : MIN;	// Use 'min' activation method
     	ACCU : MAX;	// Use 'max' accumulation method
-    	RULE 1 : IF currentRow IS left AND currentCol IS bottom THEN location IS south;
-    	RULE 2 : IF currentRow IS center AND currentCol IS middle THEN location IS center;
-    	RULE 3 : IF currentRow IS right AND currentCol IS top THEN location IS north;
+    	RULE 1 : IF maze_exit IS far THEN player IS cold;
+    	RULE 2 : IF maze_exit IS near THEN player IS warm;
+    	RULE 3 : IF maze_exit IS beside THEN player IS hot;
     END_RULEBLOCK
 
 END_FUNCTION_BLOCK

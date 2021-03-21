@@ -7,5 +7,5 @@ package ie.gmit.sw.ai;
 
 @FunctionalInterface
 public interface Command {
-	int execute();
+	void execute();
 }
