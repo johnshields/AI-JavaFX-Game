@@ -9,7 +9,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 /*
- * Main UI for the game. You should not have to alter anything in this class.
+ * Main UI for the game.
  */
 public class GameWindow extends Application{
 	private static final char PLAYER_ID = '1';
@@ -74,18 +74,21 @@ public class GameWindow extends Application{
 		System.out.println("Player Location: " + playerLocation);
 
 		// Fuzzy Logic helps Player find the exit
-		FuzzyPlayer fc = new FuzzyPlayer();
-		System.out.println("Fuzzy Value: " + fc.getTempRadius(playerLocation));
+		TempRadius fc = new TempRadius();
+		int fuzzyValue = fc.getTempRadius(playerLocation);
+		System.out.println("Fuzzy Value: " + fuzzyValue);
 
-		if(fc.getTempRadius(playerLocation) == 120)
+		// used player location as well as fuzzyValue to avoid
+		// 0 values affecting if statement.
+		if(fuzzyValue == 120 || playerLocation > 30)
 		{
 			System.out.println("Player is cold");
 		}
-		if(fc.getTempRadius(playerLocation) == 60)
+		else if(fuzzyValue == 60 || playerLocation > 15)
 		{
 			System.out.println("Player is warm");
 		}
-		if(fc.getTempRadius(playerLocation) == 10)
+		else if(fuzzyValue == 10 || playerLocation > 10)
 		{
 			System.out.println("Player is hot");
 		}

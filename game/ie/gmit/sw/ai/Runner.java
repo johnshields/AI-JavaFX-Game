@@ -23,9 +23,9 @@ public class Runner {
 		 */
 
 		// Load and Parse FCL file
-		fis = FIS.load("fcl/fuzzy_chars.fcl", true);
+		fis = FIS.load("resources/fuzzy/tempRadius.fcl", true);
 		if(fis == null ) {
-			System.err.println("Can't load file: fuzzy_chars.fcl");
+			System.err.println("Not able to load file: tempRadius.fcl");
 			return;
 		}
 
