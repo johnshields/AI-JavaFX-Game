@@ -8,17 +8,18 @@ FUNCTION_BLOCK tempRadius // Maps to a method
         player : REAL;
     END_VAR
 
+    // Terms based on mazeExit from GameWindow
     FUZZIFY playerLocation
-    	TERM south := 50;
-    	TERM southEast := 40;
+    	TERM southEast := 50;
+    	TERM south := 40;
     	TERM southWest := 30;
         TERM centrum := 25;
         TERM northEast := 20;
-        TERM northWest := 15;
-        TERM north := 10;
+        TERM north := 15;
+        TERM northWest := 10;
     END_FUZZIFY
 
-    // temperatures tell how close the player is to the maze_exit
+    // temperatures tell how close the player is to the mazeExit
     DEFUZZIFY player // method body
         TERM freezing := 150;
     	TERM cold := 120;
@@ -36,13 +37,13 @@ FUNCTION_BLOCK tempRadius // Maps to a method
     	AND : MIN;	// Use 'min' for 'and'
     	ACT : MIN;	// Use 'min' activation method
     	ACCU : MAX;	// Use 'max' accumulation method
-    	RULE 1 : IF playerLocation IS south THEN player IS freezing;
-    	RULE 2 : IF playerLocation IS southEast THEN player IS cold;
+    	RULE 1 : IF playerLocation IS southEast THEN player IS freezing;
+    	RULE 2 : IF playerLocation IS south THEN player IS cold;
     	RULE 3 : IF playerLocation IS southWest THEN player IS chilly;
     	RULE 4 : IF playerLocation IS centrum THEN player IS warm;
     	RULE 5 : IF playerLocation IS northEast THEN player IS warmer;
-    	RULE 6 : IF playerLocation IS northWest THEN player IS hot;
-        RULE 7 : IF playerLocation IS north THEN player IS redHot;
+    	RULE 6 : IF playerLocation IS north THEN player IS hot;
+        RULE 7 : IF playerLocation IS northWest THEN player IS redHot;
     END_RULEBLOCK
 
 END_FUNCTION_BLOCK
