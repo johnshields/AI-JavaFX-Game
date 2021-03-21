@@ -9,11 +9,12 @@ public class TempRadius {
     private final FIS fis = Runner.fis;
     int tempRadius = GameWindow.playerLocation;
 
-    public int getTempRadius(int playerLocation) {
+    public int getTempRadius(int playerLocation, int mazeExit) {
         // 'FUNCTION_BLOCK tempRadius' from tempRadius.fcl
         FunctionBlock fb = fis.getFunctionBlock("tempRadius");
         // Apply a value to variable
         fis.setVariable("playerLocation", playerLocation);
+        fis.setVariable("mazeExit", mazeExit);
         // Execute the fuzzy inference engine
         fis.evaluate();
         Variable radius = fb.getVariable("player");

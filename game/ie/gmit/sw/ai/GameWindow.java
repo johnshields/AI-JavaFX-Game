@@ -6,6 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 /*
@@ -38,7 +39,7 @@ public class GameWindow extends Application {
         stage.setScene(scene);
 
         // set mazeExit at random index.
-        mazeExit = (int) (10 * Math.random() + 1); // + 1 to avoid Index 0
+        mazeExit = (int) (30 * Math.random() + 1); // + 1 to avoid Index 0
         System.out.println("Maze Exit: " + mazeExit);
 
         Sprite[] sprites = getSprites(); //Load the sprites from the res directory
@@ -74,16 +75,20 @@ public class GameWindow extends Application {
         playerLocation = currentRow + currentCol;
         // Fuzzy Logic helps Player find the exit.
         TempRadius fc = new TempRadius();
-        int fuzzyValue = fc.getTempRadius(playerLocation);
-        //System.out.println("Player Location: " + playerLocation + "\nFuzzy Value: " + fuzzyValue);
+        // Set inputs
+        int fuzzyValue = fc.getTempRadius(playerLocation, mazeExit);
+        System.out.println("Player Location: " + playerLocation + "\nFuzzy Value: " + fuzzyValue);
 
         // Used player location as well as fuzzyValue to avoid
         // affecting if statement when value is 0.
         if (fuzzyValue == 120 || playerLocation > 30) {
+            GameView.PLAYER_COLOUR = Color.BLUE;
             System.out.println("Player is cold");
-        } else if (fuzzyValue == 60 || playerLocation > 15) {
+        } else if (fuzzyValue == 29 || playerLocation > 15) {
+            GameView.PLAYER_COLOUR = Color.YELLOW;
             System.out.println("Player is warm");
-        } else if (fuzzyValue == 10 || playerLocation > 10) {
+        } else if (fuzzyValue == 20 || playerLocation > 10) {
+            GameView.PLAYER_COLOUR = Color.CRIMSON;
             System.out.println("Player is hot");
         }
         // if Player is at the exit of the maze (randomly generated) game is won.

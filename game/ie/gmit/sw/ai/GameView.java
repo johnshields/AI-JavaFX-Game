@@ -15,7 +15,7 @@ import javafx.util.Duration;
  */
 public class GameView extends Canvas{ 
 	public static final int DEFAULT_VIEW_SIZE = 600;	
-	private static final Color PLAYER_COLOUR = Color.YELLOW;
+	public static Color PLAYER_COLOUR;
 	private static final Color BACKGROUND_COLOUR = Color.GREY;
 	private static final Color HEDGE_COLOUR = Color.GREEN;
 	private Color[] reds = {Color.SALMON, Color.CRIMSON, Color.RED}; //Animate enemy "dots" to make them easier to see

@@ -2,6 +2,7 @@ FUNCTION_BLOCK tempRadius // Maps to a method
 
     VAR_INPUT	// input params to a method
          playerLocation : REAL;
+         mazeExit : REAL;
     END_VAR
 
     VAR_OUTPUT  // return type from method
@@ -10,6 +11,7 @@ FUNCTION_BLOCK tempRadius // Maps to a method
 
     // Terms based on mazeExit from GameWindow
     FUZZIFY playerLocation
+        TERM noWhereNear := 130; // too stop value being out of range
     	TERM southEast := 50;
     	TERM south := 40;
     	TERM southWest := 30;
@@ -18,6 +20,13 @@ FUNCTION_BLOCK tempRadius // Maps to a method
         TERM north := 15;
         TERM northWest := 10;
     END_FUZZIFY
+
+    // mazeExit is randomly picked between 1 and 30.
+    FUZZIFY mazeExit
+        TERM indexSpotOne := (0,0) (5,1) (10,0);
+        TERM indexSpotTwo := (10,0) (15,1) (20,0);
+        TERM indexSpotThree := (20,0) (25,1) (30,0);
+     END_FUZZIFY
 
     // temperatures tell how close the player is to the mazeExit
     DEFUZZIFY player // method body
@@ -32,18 +41,37 @@ FUNCTION_BLOCK tempRadius // Maps to a method
     	DEFAULT := 0;		// Default value is 0 (if no rule activates defuzzifier)
     END_DEFUZZIFY
 
-    // Inference rules
+    // Inference rules - Used a Brute Force approach to cover all possible mazeExits
     RULEBLOCK No1
     	AND : MIN;	// Use 'min' for 'and'
     	ACT : MIN;	// Use 'min' activation method
     	ACCU : MAX;	// Use 'max' accumulation method
-    	RULE 1 : IF playerLocation IS southEast THEN player IS freezing;
-    	RULE 2 : IF playerLocation IS south THEN player IS cold;
-    	RULE 3 : IF playerLocation IS southWest THEN player IS chilly;
-    	RULE 4 : IF playerLocation IS centrum THEN player IS warm;
-    	RULE 5 : IF playerLocation IS northEast THEN player IS warmer;
-    	RULE 6 : IF playerLocation IS north THEN player IS hot;
-        RULE 7 : IF playerLocation IS northWest THEN player IS redHot;
+    	// if mazeExit is in indexSpotOne (1 - 10)
+    	RULE 1 : IF playerLocation IS southEast AND mazeExit IS indexSpotOne THEN player IS freezing;
+    	RULE 2 : IF playerLocation IS south AND mazeExit IS indexSpotOne THEN player IS cold;
+    	RULE 3 : IF playerLocation IS southWest AND mazeExit IS indexSpotOne THEN player IS chilly;
+    	RULE 4 : IF playerLocation IS centrum AND mazeExit IS indexSpotOne THEN player IS warm;
+    	RULE 5 : IF playerLocation IS northEast AND mazeExit IS indexSpotOne THEN player IS warmer;
+    	RULE 6 : IF playerLocation IS north AND mazeExit IS indexSpotOne THEN player IS hot;
+        RULE 7 : IF playerLocation IS northWest AND mazeExit IS indexSpotOne THEN player IS redHot;
+
+        // if mazeExit is in indexSpotTwo (11 - 20)
+        RULE 8 : IF playerLocation IS southEast AND mazeExit IS indexSpotTwo THEN player IS freezing;
+        RULE 9 : IF playerLocation IS south AND mazeExit IS indexSpotTwo THEN player IS cold;
+        RULE 10 : IF playerLocation IS southWest AND mazeExit IS indexSpotTwo THEN player IS chilly;
+        RULE 11 : IF playerLocation IS centrum AND mazeExit IS indexSpotTwo THEN player IS warm;
+        RULE 12 : IF playerLocation IS northEast AND mazeExit IS indexSpotTwo THEN player IS warmer;
+        RULE 13 : IF playerLocation IS north AND mazeExit IS indexSpotTwo THEN player IS hot;
+        RULE 14 : IF playerLocation IS northWest AND mazeExit IS indexSpotTwo THEN player IS redHot;
+
+        // if mazeExit is in indexSpotThree (21 - 30)
+        RULE 15 : IF playerLocation IS southEast AND mazeExit IS indexSpotThree THEN player IS freezing;
+        RULE 16 : IF playerLocation IS south AND mazeExit IS indexSpotThree THEN player IS cold;
+        RULE 17 : IF playerLocation IS southWest AND mazeExit IS indexSpotThree THEN player IS chilly;
+        RULE 18 : IF playerLocation IS centrum AND mazeExit IS indexSpotThree THEN player IS warm;
+        RULE 19 : IF playerLocation IS northEast AND mazeExit IS indexSpotThree THEN player IS warmer;
+        RULE 20 : IF playerLocation IS north AND mazeExit IS indexSpotThree THEN player IS hot;
+        RULE 21 : IF playerLocation IS northWest AND mazeExit IS indexSpotThree THEN player IS redHot;
     END_RULEBLOCK
 
 END_FUNCTION_BLOCK
