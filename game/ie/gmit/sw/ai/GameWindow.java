@@ -79,7 +79,7 @@ public class GameWindow extends Application {
         // Set inputs
         int fuzzyValue = fc.getTempRadius(playerLocation, mazeExit);
         // Working out Player's location.
-        System.out.println("Player Location: " + playerLocation + "\nFuzzy Value: " + fuzzyValue);
+        //System.out.println("Player Location: " + playerLocation + "\nFuzzy Value: " + fuzzyValue);
 
         // if statement to use getTempRadius return value to determinate the Player's tempRadius.
         // When in range of the mazeExit.

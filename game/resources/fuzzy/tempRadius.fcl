@@ -27,7 +27,7 @@ FUNCTION_BLOCK tempRadius // Maps to a method
         TERM indexSpotTwo := (10,0) (15,1) (20,0);
         TERM indexSpotThree := (20,0) (25,1) (30,0);
      END_FUZZIFY
-     
+
     // TODO - have TERMs in a range like mazeExit
     // temperatures tell how close the player is to the mazeExit
     DEFUZZIFY player // method body
