@@ -39,7 +39,7 @@ public class GameWindow extends Application{
 
 		// set mazeExit at random index.
 		mazeExit = (int) (10 * Math.random() + 1); // + 1 to avoid Index 0
-		//System.out.println("Maze Exit: " + mazeExit);
+		System.out.println("Maze Exit: " + mazeExit);
 
 		Sprite[] sprites = getSprites(); //Load the sprites from the res directory
 		view.setSprites(sprites); //Add the sprites to the view
@@ -71,10 +71,11 @@ public class GameWindow extends Application{
 		updateView();
 
 		playerLocation = currentRow + currentCol;
-		//System.out.println("Player Location: " + playerLocation);
+		System.out.println("Player Location: " + playerLocation);
+
 		// Fuzzy Logic helps Player find the exit
 		FuzzyPlayer fc = new FuzzyPlayer();
-		//System.out.println("Fuzzy Value: " + fc.getTempRadius(playerLocation));
+		System.out.println("Fuzzy Value: " + fc.getTempRadius(playerLocation));
 
 		if(fc.getTempRadius(playerLocation) == 120)
 		{
