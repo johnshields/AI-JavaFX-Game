@@ -71,33 +71,10 @@ public class GameWindow extends Application {
         }
         updateView();
 
-
         // get Player Location
         playerLocation = currentRow + currentCol;
-        // Fuzzy Logic helps Player find the exit.
-        TempRadius fc = new TempRadius();
-        // Set inputs
-        int fuzzyValue = fc.getTempRadius(playerLocation, mazeExit);
-        // Working out Player's location.
-        //System.out.println("Player Location: " + playerLocation + "\nFuzzy Value: " + fuzzyValue);
-
-        // if statement to use getTempRadius return value to determinate the Player's tempRadius.
-        // When in range of the mazeExit.
-        if (fuzzyValue >= 120) {
-            GameView.PLAYER_COLOUR = Color.CYAN;
-            System.out.println("Player is cold");
-        } else if (fuzzyValue >= 30) {
-            GameView.PLAYER_COLOUR = Color.YELLOW;
-            System.out.println("Player is warm");
-        } else if (fuzzyValue >= 10) {
-            GameView.PLAYER_COLOUR = Color.CRIMSON;
-            System.out.println("Player is hot");
-        }
-        // if Player is at the exit of the maze (randomly generated) game is won.
-        if (playerLocation == mazeExit) {
-            System.out.println("You escaped the Maze!\nGame Won!");
-            Platform.exit(); // Exit GUI.
-        }
+        // Call in mazeExitLocator.
+        MazeExitLocator.mazeExitLocator();
     }
 
     private void placePlayer() {  //Place the main player character
