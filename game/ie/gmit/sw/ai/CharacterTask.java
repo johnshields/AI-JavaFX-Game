@@ -40,7 +40,6 @@ public class CharacterTask extends Task<Void>{
 	private char enemyID;
 	private int row;
 	private int col;
-	public static int ghostLocation;
 	private int lives = 10;
 
 
@@ -92,11 +91,9 @@ public class CharacterTask extends Task<Void>{
 					row = temp_row;
 					col = temp_col;
 
-					ghostLocation = row + col;
-
-					int tempLocation = row + col;
+					int ghostLocation = row + col;
 					// if Player is in range take off a life.
-					if (tempLocation == GameWindow.playerLocation)
+					if (ghostLocation == GameWindow.playerLocation)
 					{
 						int hit = 1;
 						lives = lives - hit;

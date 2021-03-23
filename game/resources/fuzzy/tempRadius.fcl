@@ -10,6 +10,7 @@ FUNCTION_BLOCK tempRadius // Maps to a method
     END_VAR
 
     // Terms based on working out player's location in keyPressed - MazeExitLocator.
+    // 8 terms to cover all possible locations.
     FUZZIFY playerLocation
         TERM northWest := (0,0) (5,1) (10,0);
         TERM north := (10,0) (15,1) (20,0);
@@ -21,14 +22,14 @@ FUNCTION_BLOCK tempRadius // Maps to a method
         TERM nowhereNear := (80,0) (100,1) (120,0);
     END_FUZZIFY
 
-    // mazeExit is randomly picked between 1 and 10.
+    // mazeExit is randomly picked between 1 and 30.
     FUZZIFY mazeExit
         TERM indexSpotOne := (0,0) (5,1) (10,0);
         TERM indexSpotTwo := (10,0) (15,1) (20,0);
         TERM indexSpotThree := (20,0) (25,1) (30,0);
      END_FUZZIFY
 
-    // temperatures tell how close the player is to the mazeExit
+    // temperatures tell how close the player is to the mazeExit.
     DEFUZZIFY player // method body
         TERM frostbite := 180;
         TERM freezing := 150;
