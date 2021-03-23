@@ -12,7 +12,6 @@ import net.sourceforge.jFuzzyLogic.rule.Variable;
  */
 public class TempRadius {
     private final FIS fis = Runner.fis;
-    int tempRadius = GameWindow.playerLocation;
 
     /**
      * getTempRadius
@@ -27,8 +26,7 @@ public class TempRadius {
         fis.setVariable("mazeExit", mazeExit);
         // Execute the fuzzy inference engine
         fis.evaluate();
-        Variable radius = fb.getVariable("player");
-        tempRadius = (int) radius.getValue();
-        return tempRadius;
+        Variable tempRadius = fb.getVariable("player");
+        return (int) tempRadius.getValue();
     }
 }
