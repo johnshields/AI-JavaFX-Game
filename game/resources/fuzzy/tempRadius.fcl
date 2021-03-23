@@ -9,7 +9,7 @@ FUNCTION_BLOCK tempRadius // Maps to a method
         player : REAL;
     END_VAR
 
-    // Terms based on working out player's location in keyPressed - MazeExitLocator.
+    // Terms based on working out player's location in GameWindow's keyPressed & MazeExitLocator.
     // 8 terms to cover all possible locations.
     FUZZIFY playerLocation
         TERM northWest := (0,0) (5,1) (10,0);
@@ -39,15 +39,15 @@ FUNCTION_BLOCK tempRadius // Maps to a method
     	TERM warm := 30;
     	TERM hot := 20;
     	TERM redHot := 10;
-    	METHOD : COGS;		// Use 'Center Of Gravity' defuzzification method
+    	METHOD : COGS;		// 'Center Of Gravity Sugeno' defuzzification method
     	DEFAULT := 0;		// Default value is 0 (if no rule activates defuzzifier)
     END_DEFUZZIFY
 
     // Inference rules set - Used a Brute Force approach to cover all possible mazeExits.
     RULEBLOCK No1
-    	AND : MIN;	// Use 'min' for 'and'
-    	ACT : MIN;	// Use 'min' activation method
-    	ACCU : MAX;	// Use 'max' accumulation method
+    	AND : MIN;	// 'min' for 'and'
+    	ACT : MIN;	// 'min' activation method
+    	ACCU : MAX;	// 'max' accumulation method
     	// if mazeExit is in indexSpotOne (1 - 10)
     	RULE 1 : IF playerLocation IS nowhereNear AND mazeExit IS indexSpotOne THEN player IS frostbite;
     	RULE 2 : IF playerLocation IS southEast AND mazeExit IS indexSpotOne THEN player IS freezing;

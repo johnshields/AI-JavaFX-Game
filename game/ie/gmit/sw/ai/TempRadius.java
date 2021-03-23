@@ -5,7 +5,7 @@ import net.sourceforge.jFuzzyLogic.rule.Variable;
 
 /**
  * Class TempRadius - Fuzzy Logic Controller
- * Sets up Variables from FCL file (loaded in Runner) and
+ * Sets up Variables from tempRadius.fcl (loaded in Runner) and
  * returns an int value for the Player's Temperature Radius for mazeExit in GameWindow.
  *
  * @author John Shields - G00348436

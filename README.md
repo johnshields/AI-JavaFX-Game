@@ -22,7 +22,7 @@ alt="GMIT Logo" width="500" height="200"/>
 ***
 
 # About the Game
-A Game that uses the AI technologies; Fuzzy Logic and Neural Networks to controls a set of characters moving randomly through a game model.
+JavaFX Game that uses the AI technologies; Fuzzy Logic and Neural Networks to enhance the experience and to control a set of characters moving randomly through a game model.
 
 ***
 ###### END OF REAME
