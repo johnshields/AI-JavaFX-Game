@@ -6,8 +6,8 @@
 
 ## Design & Implementation Rationale
 Beginning the AI implementation, first, the class TempRadius, and tempRadius.fcl was made to use Fuzzy Logic to guide the player to the Maze Exit. 
-The terms used are input variables are playerLocation and mazeExit. 
-These two terms work with the inference rules set to output the player's temperature radius with the Maze Exit. 
+The input variables are playerLocation and mazeExit. 
+These two variables work with the inference rules set to output the player's temperature radius for the Maze Exit. 
 The number values were worked out by declaring the new variable playerLocation in GameWindow. 
 This variable is used in the keyPressed method and is initialized to equal the sum of currentRow and currentCol, which means that it tracks the player's index coordinates whenever a key is pressed. 
 The new variable mazeExit in GameWindow is randomly picked between 1 and 30 when the game starts. 
