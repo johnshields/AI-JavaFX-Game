@@ -14,7 +14,9 @@ public class Runner {
 			return;
 		}
 
-		// train, configure and load a neural network HERE
+		// Configure, train & load NN.
+		NNCharacterTask nc = new NNCharacterTask();
+		nc.neuralNetwork();
 
 		Application.launch(GameWindow.class, args);
 	}

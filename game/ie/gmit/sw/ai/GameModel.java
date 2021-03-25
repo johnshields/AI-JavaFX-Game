@@ -5,7 +5,6 @@ import java.util.Collection;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadLocalRandom;
-
 import javafx.concurrent.Task;
 
 /*
@@ -93,7 +92,7 @@ public class GameModel {
 				 * IMPORTANT! Change the following to parameterise your CharacterTask with an instance of
 				 * Command. The constructor call below is only parameterised with a lambda expression.
 				 */
-				tasks.add(new CharacterTask(this, enemyID, row, col, new NeuralCharacters()));
+				tasks.add(new CharacterTask(this, enemyID, row, col, new CharacterManager()));
 				counter++;
 			}
 		}

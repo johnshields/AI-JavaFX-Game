@@ -3,5 +3,6 @@ module gmit.software {
 	requires javafx.graphics;
 	requires transitive javafx.controls;
 	requires jFuzzyLogic;
-	exports ie.gmit.sw.ai;
+    requires encog.core;
+    exports ie.gmit.sw.ai;
 }
