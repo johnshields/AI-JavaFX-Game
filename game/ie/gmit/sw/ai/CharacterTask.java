@@ -32,7 +32,7 @@ import javafx.concurrent.Task;
  *      }
  */
 
-public class CharacterTask extends Task<Void>{
+public class CharacterTask extends Task<Void> {
     private static final int SLEEP_TIME = 300; //Sleep for 300 ms
     private static ThreadLocalRandom rand = ThreadLocalRandom.current();
     private boolean alive = true;
@@ -73,7 +73,7 @@ public class CharacterTask extends Task<Void>{
                 int temp_row = row, temp_col = col;
                 if (rand.nextBoolean()) {
                     temp_row += rand.nextBoolean() ? 1 : -1;
-                }else {
+                } else {
                     temp_col += rand.nextBoolean() ? 1 : -1;
                 }
 

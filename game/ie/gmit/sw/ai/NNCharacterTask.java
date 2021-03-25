@@ -1,6 +1,5 @@
 package ie.gmit.sw.ai;
 
-
 import org.encog.Encog;
 import org.encog.engine.network.activation.ActivationSigmoid;
 import org.encog.ml.data.MLData;
@@ -45,7 +44,7 @@ public class NNCharacterTask {
             {0.0, 0.0, 1.0, 0.0}, {0.0, 0.0, 0.0, 1.0}, {0.0, 0.0, 0.0, 1.0}, {0.0, 1.0, 0.0, 0.0},
             {0.0, 1.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 1.0}};
 
-    // Declare Network Topology
+    // Create the NN.
     BasicNetwork createNetwork() {
         BasicNetwork network = new BasicNetwork();
         network.addLayer(new BasicLayer(null, true, 4));
@@ -65,7 +64,7 @@ public class NNCharacterTask {
         System.out.println("[INFO] Creating training set...");
         MLDataSet trainingSet = new BasicMLDataSet(data, expected);
 
-        // Step 3: Training...
+        // Step 3: Training the NN.
         System.out.println("[INFO] Training the network...");
         ResilientPropagation train = new ResilientPropagation(network, trainingSet);
 
@@ -88,7 +87,7 @@ public class NNCharacterTask {
             MLData output = network.compute(pair.getInput());
             System.out.println(pair.getInput().getData(0) + ","
                     + pair.getInput().getData(1)
-                    + ", Y=" + (int)Math.round(output.getData(0))
+                    + ", Y=" + (int) Math.round(output.getData(0))
                     + ", Yd=" + (int) pair.getIdeal().getData(0));
 
             int y = (int) Math.round(output.getData(0));

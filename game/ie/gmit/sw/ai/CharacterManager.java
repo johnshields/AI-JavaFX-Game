@@ -2,7 +2,7 @@ package ie.gmit.sw.ai;
 
 import javafx.application.Platform;
 
-public class CharacterManager implements Command{
+public class CharacterManager implements Command {
     private int playerLives = 10;
     private int energy = 2;
     private int target = 1;
