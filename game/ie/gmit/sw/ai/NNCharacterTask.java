@@ -30,7 +30,7 @@ import org.encog.neural.networks.training.propagation.resilient.ResilientPropaga
  */
 public class NNCharacterTask {
 
-    BasicNetwork network;
+    private static BasicNetwork network;
     private final double[][] data = { //Energy, Sword, Gun, Enemies
             {2, 0, 0, 0}, {2, 0, 0, 1}, {2, 0, 1, 1}, {2, 0, 1, 2}, {2, 1, 0, 2},
             {2, 1, 0, 1}, {1, 0, 0, 0}, {1, 0, 0, 1}, {1, 0, 1, 1}, {1, 0, 1, 2},
@@ -47,11 +47,13 @@ public class NNCharacterTask {
     // Create the NN.
     BasicNetwork createNetwork() {
         BasicNetwork network = new BasicNetwork();
+        // add layers
         network.addLayer(new BasicLayer(null, true, 4));
         network.addLayer(new BasicLayer(new ActivationSigmoid(), true, 2));
         network.addLayer(new BasicLayer(new ActivationSigmoid(), false, 4));
         network.getStructure().finalizeStructure();
         network.reset();
+        System.out.println("[INFO] Network Created");
         return network;
     }
 
@@ -103,6 +105,7 @@ public class NNCharacterTask {
 
     // Returns NN output for a Character Task.
     public int nnTask(int energy, int sword, int gun, int enemies) {
+        System.out.println("NN is taking over characters...");
         double[] input = {energy, sword, gun, enemies};
         MLData data = new BasicMLData(input);
         return network.classify(data);
