@@ -41,6 +41,7 @@ public class CharacterTask extends Task<Void> {
     private int row;
     private int col;
     public static int ghostLocation;
+    private int playerLives = 10;
 
     /*
      * Configure each character with its own action. Use this functional interface
@@ -96,6 +97,18 @@ public class CharacterTask extends Task<Void> {
                      * computer controls this character.
                      */
                     cmd.execute();
+
+                    if (ghostLocation == GameWindow.playerLocation) {
+                        System.out.println("Attack");
+                        int hit = 1;
+                        playerLives = playerLives - hit;
+                        System.out.println("Player Lives: " + playerLives);
+                    }
+                    // Kill off Player and exit GUI.
+                    if (playerLives == 0) {
+                        System.out.println("Game Lost!\nYou Died!");
+                        Platform.exit();
+                    }
                 }
             }
         }
