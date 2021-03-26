@@ -1,6 +1,9 @@
 package ie.gmit.sw.ai;
 
+import javafx.application.Platform;
+
 public class CharacterManager implements Command {
+    private int playerLives = 10;
     private int energy = 1;
     private int target = 1;
     private int sword = 1;
@@ -10,7 +13,6 @@ public class CharacterManager implements Command {
     public void execute() {
         NNCharacterTask nc = new NNCharacterTask();
         int output = nc.nnTask(energy, sword, gun, target);
-        if(output == 0) output = output + 1;
 
         System.out.println("Character Task: " + output);
         System.out.println("Energy Level: " + energy);
@@ -19,10 +21,10 @@ public class CharacterManager implements Command {
         System.out.println("Gun: " + gun);
 
         switch (output) {
-            case 1 -> panic();
-            case 2 -> attack();
-            case 3 -> hide();
-            case 4 -> run();
+            case 0 -> panic();
+            case 1 -> attack();
+            case 2 -> hide();
+            case 3 -> run();
         }
     }
 
@@ -37,6 +39,7 @@ public class CharacterManager implements Command {
     private void attack() {
         System.out.println("Attack");
         target = (int) (2 * Math.random());
+        hitPlayer();
     }
 
     private void hide() {
@@ -53,5 +56,21 @@ public class CharacterManager implements Command {
         energy = (int) (2 * Math.random());
         sword = (int) (2 * Math.random());
         gun = (int) (2 * Math.random());
+    }
+
+    private void hitPlayer() {
+        // if Player is in range take off a life.
+        if (CharacterTask.ghostLocation == GameWindow.playerLocation) {
+            System.out.println("Attack");
+            int hit = 1;
+            playerLives = playerLives - hit;
+            System.out.println("Player Lives: " + playerLives);
+        }
+
+        // Kill off Player and exit GUI.
+        if (playerLives == 0) {
+            System.out.println("Game Lost!\nYou Died!");
+            Platform.exit();
+        }
     }
 }

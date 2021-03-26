@@ -69,7 +69,6 @@ public class NNCharacterTask {
         // Step 3: Training the NN.
         System.out.println("[INFO] Training the network...");
         ResilientPropagation train = new ResilientPropagation(network, trainingSet);
-
         double minError = 0.09;
         int epoch = 1;
         do {
