@@ -16,14 +16,15 @@ import org.encog.neural.networks.training.propagation.resilient.ResilientPropaga
  * Neural Network for the Characters.
  *
  * @author John Shields - G00348436
- * <p>
+ *
  * Data set for the Neural Network Controlled Characters.
+ *
  * Inputs:
  * 1) Energy (2 = Energized, 1 = Tired, 0 = Out of breath)
  * 2) Has a Sword (1 = yes, 0 = no)
  * 3) Has a Gun (1 = yes, 0 = no)
  * 4) Number of Targets
- * <p>
+ * 
  * Outputs:
  * 1) Panic, 2) Attack, 3) Hide, 4) Run
  */
