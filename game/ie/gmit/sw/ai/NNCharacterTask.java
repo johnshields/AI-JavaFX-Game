@@ -11,23 +11,23 @@ import org.encog.neural.networks.BasicNetwork;
 import org.encog.neural.networks.layers.BasicLayer;
 import org.encog.neural.networks.training.propagation.resilient.ResilientPropagation;
 
-/*
- *  Data set for the Neural Network Controlled Characters.
+/**
+ * Class NNCharacterTask
+ * Neural Network for the Characters.
  *
- *  Inputs
- *  -------------
- *  1) Energy (2 = Energized, 1 = Tired, 0 = Out of breath)
- *  2) Has a Sword (1 = yes, 0 = no)
- *  3) Has a Gun (1 = yes, 0 = no)
- *  4) Number of Targets
- *
- *  Outputs
- *  -------------
- *  1) Panic
- *  2) Attack
- *  3) Hide
- *  4) Run
+ * @author John Shields - G00348436
+ * <p>
+ * Data set for the Neural Network Controlled Characters.
+ * Inputs:
+ * 1) Energy (2 = Energized, 1 = Tired, 0 = Out of breath)
+ * 2) Has a Sword (1 = yes, 0 = no)
+ * 3) Has a Gun (1 = yes, 0 = no)
+ * 4) Number of Targets
+ * <p>
+ * Outputs:
+ * 1) Panic, 2) Attack, 3) Hide, 4) Run
  */
+
 public class NNCharacterTask {
 
     private static BasicNetwork network;
@@ -101,9 +101,13 @@ public class NNCharacterTask {
         Encog.getInstance().shutdown();
     }
 
-    // Returns NN output for a Character Task.
+    /**
+     * nnTask
+     * Returns NN output for a Character Task.
+     *
+     * @return NN classification of Data.
+     */
     public int nnTask(int energy, int sword, int gun, int targets) {
-        //System.out.println("NN is taking over characters...");
         double[] input = {energy, sword, gun, targets};
         MLData data = new BasicMLData(input);
         return network.classify(data);

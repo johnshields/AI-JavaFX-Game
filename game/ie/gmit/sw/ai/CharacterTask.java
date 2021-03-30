@@ -51,8 +51,6 @@ public class CharacterTask extends Task<Void> {
                     // This fires if the character can move to a cell, i.e. if it is not already occupied.
                     model.set(temp_row, temp_col, enemyID);
                     model.set(row, col, '\u0020');
-                    row = temp_row;
-                    col = temp_col;
 
                     switch (CharacterManager.action) {
                         case "hide" -> {

@@ -8,6 +8,7 @@ import javafx.application.Platform;
  *
  * @author John Shields - G00348436
  */
+
 public class MazeExitLocator {
     public static void mazeExitLocator() {
         TempRadius fc = new TempRadius();

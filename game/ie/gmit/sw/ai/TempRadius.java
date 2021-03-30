@@ -1,4 +1,5 @@
 package ie.gmit.sw.ai;
+
 import net.sourceforge.jFuzzyLogic.FIS;
 import net.sourceforge.jFuzzyLogic.FunctionBlock;
 import net.sourceforge.jFuzzyLogic.rule.Variable;
@@ -10,6 +11,7 @@ import net.sourceforge.jFuzzyLogic.rule.Variable;
  *
  * @author John Shields - G00348436
  */
+
 public class TempRadius {
     private final FIS fis = Runner.fis;
 
