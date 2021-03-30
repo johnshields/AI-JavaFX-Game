@@ -24,7 +24,7 @@ import org.encog.neural.networks.training.propagation.resilient.ResilientPropaga
  * 2) Has a Sword (1 = yes, 0 = no)
  * 3) Has a Gun (1 = yes, 0 = no)
  * 4) Number of Targets
- * 
+ *
  * Outputs:
  * 1) Panic, 2) Attack, 3) Hide, 4) Run
  */

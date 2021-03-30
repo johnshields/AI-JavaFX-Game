@@ -54,18 +54,12 @@ public class CharacterTask extends Task<Void> {
 
                     switch (CharacterManager.action) {
                         case "hide" -> {
-                            System.out.println("Hide");
                             // hide the enemy
                             model.set(temp_row, temp_col, (char) 0);
-                        }
-                        case "panic" -> {
-                            System.out.println("Panic");
                             row = temp_row;
                             col = temp_col;
                         }
-                        case "run" -> {
-                            System.out.println("Run");
-                            // Move normally
+                        case "panic", "run" -> {
                             row = temp_row;
                             col = temp_col;
                         }
