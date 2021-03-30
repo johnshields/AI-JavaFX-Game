@@ -19,7 +19,7 @@ import org.encog.neural.networks.training.propagation.resilient.ResilientPropaga
  *  1) Energy (2 = Energized, 1 = Tired, 0 = Out of breath)
  *  2) Has a Sword (1 = yes, 0 = no)
  *  3) Has a Gun (1 = yes, 0 = no)
- *  4) Number of Enemies (This value may need to be normalized)
+ *  4) Number of Targets
  *
  *  Outputs
  *  -------------
@@ -31,18 +31,22 @@ import org.encog.neural.networks.training.propagation.resilient.ResilientPropaga
 public class NNCharacterTask {
 
     private static BasicNetwork network;
-    private final double[][] data = { //Energy, Sword, Gun, Enemies
+    private final double[][] data = {
+            // Energy, Sword, Gun, Targets
             {2, 0, 0, 0}, {2, 0, 0, 1}, {2, 0, 1, 1}, {2, 0, 1, 2}, {2, 1, 0, 2},
             {2, 1, 0, 1}, {1, 0, 0, 0}, {1, 0, 0, 1}, {1, 0, 1, 1}, {1, 0, 1, 2},
             {1, 1, 0, 2}, {1, 1, 0, 1}, {0, 0, 0, 0}, {0, 0, 0, 1}, {0, 0, 1, 1},
-            {0, 0, 1, 2}, {0, 1, 0, 2}, {0, 1, 0, 1}};
+            {0, 0, 1, 2}, {0, 1, 0, 2}, {0, 1, 0, 1}
+    };
 
-    private final double[][] expected = { //Panic, Attack, Hide, Run
+    private final double[][] expected = {
+            // Panic, Attack, Hide, Run
             {0.0, 0.0, 1.0, 0.0}, {0.0, 0.0, 1.0, 0.0}, {1.0, 0.0, 0.0, 0.0}, {1.0, 0.0, 0.0, 0.0},
             {0.0, 0.0, 0.0, 1.0}, {1.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 1.0, 0.0}, {0.0, 0.0, 0.0, 1.0},
             {1.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 1.0}, {0.0, 0.0, 0.0, 1.0}, {0.0, 0.0, 0.0, 1.0},
             {0.0, 0.0, 1.0, 0.0}, {0.0, 0.0, 0.0, 1.0}, {0.0, 0.0, 0.0, 1.0}, {0.0, 1.0, 0.0, 0.0},
-            {0.0, 1.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 1.0}};
+            {0.0, 1.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 1.0}
+    };
 
     // Create the NN.
     BasicNetwork createNetwork() {
@@ -86,11 +90,6 @@ public class NNCharacterTask {
         for (MLDataPair pair : trainingSet) {
             total++;
             MLData output = network.compute(pair.getInput());
-            System.out.println(pair.getInput().getData(0) + ","
-                    + pair.getInput().getData(1)
-                    + ", Y=" + (int) Math.round(output.getData(0))
-                    + ", Yd=" + (int) pair.getIdeal().getData(0));
-
             int y = (int) Math.round(output.getData(0));
             int yd = (int) pair.getIdeal().getData(0);
             if (y == yd) {
@@ -98,14 +97,14 @@ public class NNCharacterTask {
             }
         }
         // Shut down NN.
-        System.out.println("Testing Complete: Accuracy = " + ((correct / total) * 100));
+        System.out.println("[INFO] Testing Complete: Accuracy = " + ((correct / total) * 100));
         Encog.getInstance().shutdown();
     }
 
     // Returns NN output for a Character Task.
-    public int nnTask(int energy, int sword, int gun, int enemies) {
-        System.out.println("NN is taking over characters...");
-        double[] input = {energy, sword, gun, enemies};
+    public int nnTask(int energy, int sword, int gun, int targets) {
+        //System.out.println("NN is taking over characters...");
+        double[] input = {energy, sword, gun, targets};
         MLData data = new BasicMLData(input);
         return network.classify(data);
     }

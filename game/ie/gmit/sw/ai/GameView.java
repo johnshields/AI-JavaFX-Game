@@ -10,9 +10,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 import javafx.util.Duration;
 
-/*
- * [WARNING] Don't mess with this class unless you know exactly what you're at... 
- */
 public class GameView extends Canvas{ 
 	public static final int DEFAULT_VIEW_SIZE = 600;	
 	public static Color PLAYER_COLOUR = Color.YELLOW;
