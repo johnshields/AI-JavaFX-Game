@@ -6,7 +6,7 @@ import ie.gmit.sw.ai.GameWindow;
 import javafx.application.Platform;
 
 /**
- * Class CharacterManager
+ * Class CharacterManager - Called in GameModel.
  * Works with nnTask from NNCharacterTask and CharacterTask to Control the Characters.
  *
  * @author John Shields - G00348436
@@ -15,7 +15,7 @@ import javafx.application.Platform;
 public class CharacterManager implements Command {
     private int energy;
     private int target;
-    private int sword;
+    private int redBull;
     private int gun;
     private static int playerLives = 10;
     public static String action = "";
@@ -24,14 +24,7 @@ public class CharacterManager implements Command {
     public void execute() {
         // Get a value to control the character based on the changing stats.
         NNCharacterTask nc = new NNCharacterTask();
-        int output = nc.nnTask(energy, sword, gun, target);
-
-        // Testing...
-//        System.out.println("Character Task: " + output);
-//        System.out.println("Enemy: " + energy);
-//        System.out.println("Sword: " + sword);
-//        System.out.println("Gun: " + gun);
-//        System.out.println("Target: " + target);
+        int output = nc.nnTask(energy, redBull, gun, target);
 
         switch (output) {
             case 0 -> panic();
@@ -41,39 +34,50 @@ public class CharacterManager implements Command {
         }
     }
 
-    // TODO - Fix up values
+    // 2, 0, 1, 1 = Panic
+    // 0, 1, 0, 2 = Attack
+    // 2, 0, 0, 0 = Hide
+    // 0, 1, 0, 1 = Run
+
+    // expected to go to Attack
     public void panic() {
+        //System.out.println("Panic");
         action = "panic";
         energy = 0;
-        target = 0;
-        sword = 0;
+        redBull = 1;
         gun = 0;
+        target = 2;
     }
 
+    // expected to go to Run
     public void hide() {
+        //System.out.println("Hide");
         action = "hide";
-        energy = 2;
-        target = 0;
-        sword = 1;
-        gun = 1;
-    }
-
-    public void run() {
-        action = "run";
-        energy = 1;
-        target = 0;
-        sword = 0;
+        energy = 0;
+        redBull = 1;
         gun = 0;
+        target = 1;
     }
 
+    // expected to go to Panic
+    public void run() {
+        //System.out.println("Run");
+        action = "run";
+        energy = 2;
+        redBull = 0;
+        gun = 1;
+        target = 1;
+    }
+
+    // expected to go to Hide
     public void attack() {
         System.out.println("Attack");
         // if Player is in range take off a life.
         if (CharacterTask.ghostLocation == GameWindow.playerLocation) {
-            energy = 1;
+            energy = 2;
+            redBull = 0;
+            gun = 0;
             target = 0;
-            sword = 1;
-            gun = 1;
             playerLives = playerLives - 1;
             System.out.println("Player Lives: " + playerLives);
         }

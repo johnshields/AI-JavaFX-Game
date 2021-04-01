@@ -14,11 +14,18 @@ public class Runner {
 			System.err.println("Not able to load file: tempRadius.fcl");
 			return;
 		}
+		System.out.println("[INFO] tempRadius.fcl loaded.");
 
-		// Configure, train & load NN.
+		// Setup the NN.
 		NNCharacterTask nc = new NNCharacterTask();
 		nc.neuralNetwork();
 
-		Application.launch(GameWindow.class, args);
+		// necessary try catch to get .jar file to run from CLI
+		try {
+			System.out.println("[INFO] Launching GUI...");
+			Application.launch(GameWindow.class, args);
+		} catch (NoClassDefFoundError e) {
+			e.printStackTrace();
+		}
 	}
 }

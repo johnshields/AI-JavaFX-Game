@@ -16,12 +16,12 @@ import org.encog.neural.networks.training.propagation.resilient.ResilientPropaga
  * Neural Network for the Characters.
  *
  * @author John Shields - G00348436
- *
+ * 
  * Data set for the Neural Network Controlled Characters.
  *
  * Inputs:
  * 1) Energy (2 = Energized, 1 = Tired, 0 = Out of breath)
- * 2) Has a Sword (1 = yes, 0 = no)
+ * 2) Has a RedBull (1 = yes, 0 = no)
  * 3) Has a Gun (1 = yes, 0 = no)
  * 4) Number of Targets
  *
@@ -33,20 +33,47 @@ public class NNCharacterTask {
 
     private static BasicNetwork network;
     private double[][] data = {
-            // Energy, Sword, Gun, Targets
-            {2, 0, 0, 0}, {2, 0, 0, 1}, {2, 0, 1, 1}, {2, 0, 1, 2}, {2, 1, 0, 2},
-            {2, 1, 0, 1}, {1, 0, 0, 0}, {1, 0, 0, 1}, {1, 0, 1, 1}, {1, 0, 1, 2},
-            {1, 1, 0, 2}, {1, 1, 0, 1}, {0, 0, 0, 0}, {0, 0, 0, 1}, {0, 0, 1, 1},
-            {0, 0, 1, 2}, {0, 1, 0, 2}, {0, 1, 0, 1}
+            // Energy, RedBull, Gun, Targets
+            {2, 0, 0, 0},
+            {2, 0, 0, 1},
+            {2, 0, 1, 1},
+            {2, 0, 1, 2},
+            {2, 1, 0, 2},
+            {2, 1, 0, 1},
+            {1, 0, 0, 0},
+            {1, 0, 0, 1},
+            {1, 0, 1, 1},
+            {1, 0, 1, 2},
+            {1, 1, 0, 2},
+            {1, 1, 0, 1},
+            {0, 0, 0, 0},
+            {0, 0, 0, 1},
+            {0, 0, 1, 1},
+            {0, 0, 1, 2},
+            {0, 1, 0, 2},
+            {0, 1, 0, 1}
     };
 
     private double[][] expected = {
             // Panic, Attack, Hide, Run
-            {0.0, 0.0, 1.0, 0.0}, {0.0, 0.0, 1.0, 0.0}, {1.0, 0.0, 0.0, 0.0}, {1.0, 0.0, 0.0, 0.0},
-            {0.0, 0.0, 0.0, 1.0}, {1.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 1.0, 0.0}, {0.0, 0.0, 0.0, 1.0},
-            {1.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 1.0}, {0.0, 0.0, 0.0, 1.0}, {0.0, 0.0, 0.0, 1.0},
-            {0.0, 0.0, 1.0, 0.0}, {0.0, 0.0, 0.0, 1.0}, {0.0, 0.0, 0.0, 1.0}, {0.0, 1.0, 0.0, 0.0},
-            {0.0, 1.0, 0.0, 0.0}, {0.0, 0.0, 0.0, 1.0}
+            {0.0, 0.0, 1.0, 0.0}, // Hide
+            {0.0, 0.0, 1.0, 0.0}, // Hide
+            {1.0, 0.0, 0.0, 0.0}, // Panic
+            {1.0, 0.0, 0.0, 0.0}, // Panic
+            {0.0, 0.0, 0.0, 1.0}, // Run
+            {1.0, 0.0, 0.0, 0.0}, // Hide
+            {0.0, 0.0, 1.0, 0.0}, // Hide
+            {0.0, 0.0, 0.0, 1.0}, // Run
+            {1.0, 0.0, 0.0, 0.0}, // Panic
+            {0.0, 0.0, 0.0, 1.0}, // Run
+            {0.0, 0.0, 0.0, 1.0}, // Run
+            {0.0, 0.0, 0.0, 1.0}, // Run
+            {0.0, 0.0, 1.0, 0.0}, // Hide
+            {0.0, 0.0, 0.0, 1.0}, // Run
+            {0.0, 0.0, 0.0, 1.0}, // Run
+            {0.0, 1.0, 0.0, 0.0}, // Attack
+            {0.0, 1.0, 0.0, 0.0}, // Attack
+            {0.0, 0.0, 0.0, 1.0} // Run
     };
 
     // Create the NN.
@@ -58,7 +85,7 @@ public class NNCharacterTask {
         network.addLayer(new BasicLayer(new ActivationSigmoid(), false, 4));
         network.getStructure().finalizeStructure();
         network.reset();
-        System.out.println("[INFO] Network Created");
+        System.out.println("[INFO] Network Created.");
         return network;
     }
 
@@ -82,7 +109,7 @@ public class NNCharacterTask {
             epoch++;
         } while (train.getError() > minError);
         train.finishTraining();
-        System.out.println("[INFO] training complete in " + epoch + " epochs with error=" + train.getError());
+        System.out.println("[INFO] Training complete in " + epoch + " epochs with error=" + train.getError());
 
         // Step 4: Test the NN.
         System.out.println("[INFO] Testing the network...");
@@ -108,8 +135,8 @@ public class NNCharacterTask {
      *
      * @return NN classification of Data.
      */
-    public int nnTask(int energy, int sword, int gun, int targets) {
-        double[] input = {energy, sword, gun, targets};
+    public int nnTask(int energy, int redBull, int gun, int targets) {
+        double[] input = {energy, redBull, gun, targets};
         MLData data = new BasicMLData(input);
         return network.classify(data);
     }

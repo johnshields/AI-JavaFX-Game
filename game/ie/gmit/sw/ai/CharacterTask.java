@@ -68,7 +68,6 @@ public class CharacterTask extends Task<Void> {
                             col = temp_col;
                         }
                         case "run" -> {
-                            model.set(temp_row, temp_col, enemyID);
                             row = temp_row;
                             col = temp_col;
                         }

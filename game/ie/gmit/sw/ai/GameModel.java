@@ -9,16 +9,6 @@ import java.util.concurrent.ThreadLocalRandom;
 import ie.gmit.sw.ai.neural.CharacterManager;
 import javafx.concurrent.Task;
 
-/*
- * [READ THIS CAREFULLY]
- * You will need to change the method addGameCharacter() below and configure each
- * instance of CharacterTask with a Command object. The implementation below uses
- * a lambda expression ()-> System.out.println("Action executing!") as the default
- * logic for the execute() method.
- *
- * [WARNING] Don't mess with anything else in this class unless you know exactly
- * what you're at... If you break it, you own it.
- */
 public class GameModel {
 	private static final int MAX_CHARACTERS = 10;
 	private ThreadLocalRandom rand = ThreadLocalRandom.current();
@@ -41,9 +31,8 @@ public class GameModel {
 		exec.shutdownNow();
 	}
 
-	/*
-	 * Initialises the game model by creating an n x m array filled with hedge
-	 */
+
+	// Initialises the game model by creating an n x m array filled with hedge
 	private void init(){
 		for (int row = 0; row < model.length; row++){
 			for (int col = 0; col < model[row].length; col++){
@@ -52,9 +41,8 @@ public class GameModel {
 		}
 	}
 
-	/*
-	 * Carve paths through the hedge to create passages.
-	 */
+
+	 // Carve paths through the hedge to create passages.
 	public void carve(){
 		for (int row = 0; row < model.length; row++){
 			for (int col = 0; col < model[row].length - 1; col++){
@@ -90,10 +78,7 @@ public class GameModel {
 			if (model[row][col] == replace){
 				model[row][col] = enemyID;
 
-				/*
-				 * IMPORTANT! Change the following to parameterise your CharacterTask with an instance of
-				 * Command. The constructor call below is only parameterised with a lambda expression.
-				 */
+				// Call in the CharacterManager controlled by NN.
 				tasks.add(new CharacterTask(this, enemyID, row, col, new CharacterManager()));
 				counter++;
 			}
