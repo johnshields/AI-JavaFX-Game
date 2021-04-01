@@ -1,4 +1,4 @@
-package ie.gmit.sw.ai;
+package ie.gmit.sw.ai.neural;
 
 import org.encog.Encog;
 import org.encog.engine.network.activation.ActivationSigmoid;
@@ -32,7 +32,7 @@ import org.encog.neural.networks.training.propagation.resilient.ResilientPropaga
 public class NNCharacterTask {
 
     private static BasicNetwork network;
-    private final double[][] data = {
+    private double[][] data = {
             // Energy, Sword, Gun, Targets
             {2, 0, 0, 0}, {2, 0, 0, 1}, {2, 0, 1, 1}, {2, 0, 1, 2}, {2, 1, 0, 2},
             {2, 1, 0, 1}, {1, 0, 0, 0}, {1, 0, 0, 1}, {1, 0, 1, 1}, {1, 0, 1, 2},
@@ -40,7 +40,7 @@ public class NNCharacterTask {
             {0, 0, 1, 2}, {0, 1, 0, 2}, {0, 1, 0, 1}
     };
 
-    private final double[][] expected = {
+    private double[][] expected = {
             // Panic, Attack, Hide, Run
             {0.0, 0.0, 1.0, 0.0}, {0.0, 0.0, 1.0, 0.0}, {1.0, 0.0, 0.0, 0.0}, {1.0, 0.0, 0.0, 0.0},
             {0.0, 0.0, 0.0, 1.0}, {1.0, 0.0, 0.0, 0.0}, {0.0, 0.0, 1.0, 0.0}, {0.0, 0.0, 0.0, 1.0},

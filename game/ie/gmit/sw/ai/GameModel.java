@@ -5,6 +5,8 @@ import java.util.Collection;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadLocalRandom;
+
+import ie.gmit.sw.ai.neural.CharacterManager;
 import javafx.concurrent.Task;
 
 /*

@@ -2,6 +2,7 @@ package ie.gmit.sw.ai;
 
 import java.util.concurrent.ThreadLocalRandom;
 
+import ie.gmit.sw.ai.neural.CharacterManager;
 import javafx.concurrent.Task;
 
 /*
@@ -19,8 +20,8 @@ public class CharacterTask extends Task<Void> {
     private char enemyID;
     private int row;
     private int col;
-    public static int ghostLocation;
     private Command cmd;
+    public static int ghostLocation;
 
     public CharacterTask(GameModel model, char enemyID, int row, int col, Command cmd) {
         this.model = model;
@@ -52,14 +53,22 @@ public class CharacterTask extends Task<Void> {
                     model.set(temp_row, temp_col, enemyID);
                     model.set(row, col, '\u0020');
 
+                    // Bring in action states from NN.
                     switch (CharacterManager.action) {
                         case "hide" -> {
-                            // hide the enemy
+                            // Hide the enemy.
                             model.set(temp_row, temp_col, (char) 0);
                             row = temp_row;
                             col = temp_col;
                         }
-                        case "panic", "run" -> {
+                        case "panic" -> {
+                            // Turn enemies pink when in panic state.
+                            model.set(temp_row, temp_col,'\u0033');
+                            row = temp_row;
+                            col = temp_col;
+                        }
+                        case "run" -> {
+                            model.set(temp_row, temp_col, enemyID);
                             row = temp_row;
                             col = temp_col;
                         }

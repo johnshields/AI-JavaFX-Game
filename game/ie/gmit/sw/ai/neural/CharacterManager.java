@@ -1,5 +1,8 @@
-package ie.gmit.sw.ai;
+package ie.gmit.sw.ai.neural;
 
+import ie.gmit.sw.ai.CharacterTask;
+import ie.gmit.sw.ai.Command;
+import ie.gmit.sw.ai.GameWindow;
 import javafx.application.Platform;
 
 /**
@@ -8,20 +11,27 @@ import javafx.application.Platform;
  *
  * @author John Shields - G00348436
  */
-// TODO - Fix up values so all actions can be accessed
+
 public class CharacterManager implements Command {
     private int energy;
     private int target;
     private int sword;
     private int gun;
-    public static String action = "";
     private static int playerLives = 10;
+    public static String action = "";
 
     @Override
     public void execute() {
         // Get a value to control the character based on the changing stats.
         NNCharacterTask nc = new NNCharacterTask();
         int output = nc.nnTask(energy, sword, gun, target);
+
+        // Testing...
+//        System.out.println("Character Task: " + output);
+//        System.out.println("Enemy: " + energy);
+//        System.out.println("Sword: " + sword);
+//        System.out.println("Gun: " + gun);
+//        System.out.println("Target: " + target);
 
         switch (output) {
             case 0 -> panic();
@@ -31,6 +41,7 @@ public class CharacterManager implements Command {
         }
     }
 
+    // TODO - Fix up values
     public void panic() {
         action = "panic";
         energy = 0;
@@ -63,7 +74,6 @@ public class CharacterManager implements Command {
             target = 0;
             sword = 1;
             gun = 1;
-
             playerLives = playerLives - 1;
             System.out.println("Player Lives: " + playerLives);
         }

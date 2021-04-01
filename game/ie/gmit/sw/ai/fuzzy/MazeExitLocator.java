@@ -1,5 +1,6 @@
-package ie.gmit.sw.ai;
+package ie.gmit.sw.ai.fuzzy;
 
+import ie.gmit.sw.ai.GameWindow;
 import javafx.application.Platform;
 
 /**
@@ -10,7 +11,7 @@ import javafx.application.Platform;
  */
 
 public class MazeExitLocator {
-    public static void mazeExitLocator() {
+    public void mazeExitLocator() {
         TempRadius fc = new TempRadius();
         // Set inputs
         int fuzzyValue = fc.getTempRadius(GameWindow.playerLocation, GameWindow.mazeExit);

@@ -1,5 +1,6 @@
-package ie.gmit.sw.ai;
+package ie.gmit.sw.ai.fuzzy;
 
+import ie.gmit.sw.ai.Runner;
 import net.sourceforge.jFuzzyLogic.FIS;
 import net.sourceforge.jFuzzyLogic.FunctionBlock;
 import net.sourceforge.jFuzzyLogic.rule.Variable;

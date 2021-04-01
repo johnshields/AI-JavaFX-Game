@@ -1,12 +1,11 @@
 package ie.gmit.sw.ai;
 
+import ie.gmit.sw.ai.fuzzy.MazeExitLocator;
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 /*
@@ -18,8 +17,8 @@ public class GameWindow extends Application {
     private static final int IMAGE_COUNT = 6;
     private GameView view;
     private GameModel model;
-    public static int currentRow;
-    public static int currentCol;
+    private int currentRow;
+    private int currentCol;
     public static int mazeExit;
     public static int playerLocation;
 
@@ -74,7 +73,8 @@ public class GameWindow extends Application {
         // get Player Location
         playerLocation = currentRow + currentCol;
         // Call in mazeExitLocator.
-        MazeExitLocator.mazeExitLocator();
+        MazeExitLocator mel = new MazeExitLocator();
+        mel.mazeExitLocator();
     }
 
     private void placePlayer() {  //Place the main player character
