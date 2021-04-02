@@ -16,7 +16,7 @@ import org.encog.neural.networks.training.propagation.resilient.ResilientPropaga
  * Neural Network for the Characters.
  *
  * @author John Shields - G00348436
- * 
+ *
  * Data set for the Neural Network Controlled Characters.
  *
  * Inputs:
@@ -26,35 +26,35 @@ import org.encog.neural.networks.training.propagation.resilient.ResilientPropaga
  * 4) Number of Targets
  *
  * Outputs:
- * 1) Panic, 2) Attack, 3) Hide, 4) Run
+ * 0) Panic, 1) Attack, 2) Hide, 3) Run
  */
 
 public class NNCharacterTask {
 
     private static BasicNetwork network;
-    private double[][] data = {
+    private final double[][] data = {
             // Energy, RedBull, Gun, Targets
-            {2, 0, 0, 0},
-            {2, 0, 0, 1},
-            {2, 0, 1, 1},
-            {2, 0, 1, 2},
-            {2, 1, 0, 2},
-            {2, 1, 0, 1},
-            {1, 0, 0, 0},
-            {1, 0, 0, 1},
-            {1, 0, 1, 1},
-            {1, 0, 1, 2},
-            {1, 1, 0, 2},
-            {1, 1, 0, 1},
-            {0, 0, 0, 0},
-            {0, 0, 0, 1},
-            {0, 0, 1, 1},
-            {0, 0, 1, 2},
-            {0, 1, 0, 2},
-            {0, 1, 0, 1}
+            {2, 0, 0, 0}, // Hide
+            {2, 0, 0, 1}, // Hide
+            {2, 0, 1, 1}, // Panic
+            {2, 0, 1, 2}, // Panic
+            {2, 1, 0, 2}, // Run
+            {2, 1, 0, 1}, // Hide
+            {1, 0, 0, 0}, // Hide
+            {1, 0, 0, 1}, // Run
+            {1, 0, 1, 1}, // Panic
+            {0, 0, 1, 2}, // Attack
+            {0, 1, 0, 2}, // Attack
+            {1, 1, 0, 1}, // Run
+            {0, 0, 0, 0}, // Hide
+            {0, 0, 0, 1}, // Run
+            {0, 0, 1, 1}, // Run
+            {0, 0, 1, 2}, // Attack
+            {0, 1, 0, 2}, // Attack
+            {0, 1, 0, 1} // Run
     };
 
-    private double[][] expected = {
+    private final double[][] expected = {
             // Panic, Attack, Hide, Run
             {0.0, 0.0, 1.0, 0.0}, // Hide
             {0.0, 0.0, 1.0, 0.0}, // Hide
@@ -65,8 +65,8 @@ public class NNCharacterTask {
             {0.0, 0.0, 1.0, 0.0}, // Hide
             {0.0, 0.0, 0.0, 1.0}, // Run
             {1.0, 0.0, 0.0, 0.0}, // Panic
-            {0.0, 0.0, 0.0, 1.0}, // Run
-            {0.0, 0.0, 0.0, 1.0}, // Run
+            {0.0, 1.0, 0.0, 0.0}, // Attack
+            {0.0, 1.0, 0.0, 0.0}, // Attack
             {0.0, 0.0, 0.0, 1.0}, // Run
             {0.0, 0.0, 1.0, 0.0}, // Hide
             {0.0, 0.0, 0.0, 1.0}, // Run

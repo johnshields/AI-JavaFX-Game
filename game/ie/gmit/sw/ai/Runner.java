@@ -8,7 +8,7 @@ public class Runner {
 	public static FIS fis;
 
 	public static void main(String[] args) {
-		// Load and Parse FCL file
+		// Load and Parse FCL file.
 		fis = FIS.load("resources/fuzzy/tempRadius.fcl", true);
 		if(fis == null) {
 			System.err.println("Not able to load file: tempRadius.fcl");
@@ -20,7 +20,7 @@ public class Runner {
 		NNCharacterTask nc = new NNCharacterTask();
 		nc.neuralNetwork();
 
-		// necessary try catch to get .jar file to run from CLI
+		// Necessary try catch to get .jar file to run from CLI.
 		try {
 			System.out.println("[INFO] Launching GUI...");
 			Application.launch(GameWindow.class, args);

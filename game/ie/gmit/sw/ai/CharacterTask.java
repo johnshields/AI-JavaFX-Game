@@ -40,7 +40,7 @@ public class CharacterTask extends Task<Void> {
         while (alive) {
             Thread.sleep(SLEEP_TIME);
             synchronized (model) {
-                //Randomly pick a direction up, down, left or right
+                // Randomly pick a direction up, down, left or right.
                 int temp_row = row, temp_col = col;
                 if (rand.nextBoolean()) {
                     temp_row += rand.nextBoolean() ? 1 : -1;
@@ -53,7 +53,7 @@ public class CharacterTask extends Task<Void> {
                     model.set(temp_row, temp_col, enemyID);
                     model.set(row, col, '\u0020');
 
-                    // Bring in action states from NN.
+                    // Bring in action states from CharacterManager.
                     switch (CharacterManager.action) {
                         case "hide" -> {
                             // Hide the enemy.
@@ -74,7 +74,6 @@ public class CharacterTask extends Task<Void> {
                     }
 
                     ghostLocation = row + col;
-                    //System.out.println("GL: " + ghostLocation + " ID: " + enemyID);
                 } else {
                     // This fires if a move is not valid, i.e. if someone or some thing is in the way.
                     cmd.execute();

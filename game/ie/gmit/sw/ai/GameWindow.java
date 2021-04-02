@@ -37,9 +37,9 @@ public class GameWindow extends Application {
         scene.setOnKeyPressed(e -> keyPressed(e)); //Add a key listener
         stage.setScene(scene);
 
-        // set mazeExit at random index.
+        // set mazeExit at random index. // TODO - Get mazeExit set up with Heuristics.
         mazeExit = (int) (30 * Math.random() + 1); // + 1 to avoid Index 0
-        System.out.println("Maze Exit: " + mazeExit);
+        //System.out.println("Maze Exit: " + mazeExit);
 
         Sprite[] sprites = getSprites(); //Load the sprites from the res directory
         view.setSprites(sprites); //Add the sprites to the view
@@ -70,7 +70,7 @@ public class GameWindow extends Application {
         }
         updateView();
 
-        // get Player Location
+        // get Player Location.
         playerLocation = currentRow + currentCol;
         // Call in mazeExitLocator.
         MazeExitLocator mel = new MazeExitLocator();

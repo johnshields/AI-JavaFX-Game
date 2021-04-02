@@ -12,11 +12,9 @@ import javafx.application.Platform;
 
 public class MazeExitLocator {
     public void mazeExitLocator() {
-        TempRadius fc = new TempRadius();
+        TempRadius tr = new TempRadius();
         // Set inputs
-        int fuzzyValue = fc.getTempRadius(GameWindow.playerLocation, GameWindow.mazeExit);
-        // Working out Player's location.
-        //System.out.println("Player Location: " + GameWindow.playerLocation + "\nFuzzy Value: " + fuzzyValue);
+        int fuzzyValue = tr.getTempRadius(GameWindow.playerLocation, GameWindow.mazeExit);
 
         // if statement to use getTempRadius return value to determinate the Player's tempRadius.
         if (fuzzyValue >= 180) {
