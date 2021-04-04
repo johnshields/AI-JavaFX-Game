@@ -4,7 +4,7 @@ import ie.gmit.sw.ai.GameWindow;
 import javafx.application.Platform;
 
 /**
- * Class MazeExitLocator
+ * Class MazeExitLocator - Called in keyPressed in GameWindow.
  * Works with TempRadius to help the Player find the mazeExit.
  *
  * @author John Shields - G00348436
@@ -13,7 +13,7 @@ import javafx.application.Platform;
 public class MazeExitLocator {
     public void mazeExitLocator() {
         TempRadius tr = new TempRadius();
-        // Set inputs
+        // Set inputs for the Fuzzy Logic Controller.
         int fuzzyValue = tr.getTempRadius(GameWindow.playerLocation, GameWindow.mazeExit);
 
         // if statement to use getTempRadius return value to determinate the Player's tempRadius.

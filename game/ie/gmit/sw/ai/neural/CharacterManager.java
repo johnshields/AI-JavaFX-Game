@@ -7,7 +7,7 @@ import javafx.application.Platform;
 
 /**
  * Class CharacterManager - Called in GameModel.
- * Works with nnTask from NNCharacterTask and CharacterTask to Control the Characters.
+ * Works with nnTask from NNCharacterTask and CharacterTask to control the Characters.
  *
  * @author John Shields - G00348436
  */
@@ -17,12 +17,12 @@ public class CharacterManager implements Command {
     private int target;
     private int redBull;
     private int gun;
-    private static int playerLives = 10;
+    private static int playerLives = 5;
     public static String action = "";
 
     @Override
     public void execute() {
-        // Get a value to control the character based on the changing stats.
+        // Get an output value from NN to control the characters based on the changing stats.
         NNCharacterTask nc = new NNCharacterTask();
         int output = nc.nnTask(energy, redBull, gun, target);
 
@@ -32,9 +32,15 @@ public class CharacterManager implements Command {
             case 2 -> hide();
             case 3 -> run();
         }
+
+        // Kill off Player and exit GUI.
+        if (playerLives == 0) {
+            System.out.println("Game Lost!\nYou Died!");
+            Platform.exit();
+        }
     }
 
-    // expected to go to Attack
+    // Expected to transition to Attack.
     public void panic() {
         action = "panic";
         energy = 0;
@@ -43,7 +49,7 @@ public class CharacterManager implements Command {
         target = 2;
     }
 
-    // expected to go to Run
+    // Expected to transition to Run.
     public void hide() {
         action = "hide";
         energy = 0;
@@ -52,7 +58,7 @@ public class CharacterManager implements Command {
         target = 1;
     }
 
-    // expected to go to Panic
+    // Expected to transition to Panic.
     public void run() {
         action = "run";
         energy = 2;
@@ -61,7 +67,7 @@ public class CharacterManager implements Command {
         target = 1;
     }
 
-    // expected to go to Hide
+    // Expected to transition to Hide.
     public void attack() {
         energy = 2;
         redBull = 0;
@@ -71,12 +77,6 @@ public class CharacterManager implements Command {
         if (CharacterTask.ghostLocation == GameWindow.playerLocation) {
             playerLives = playerLives - 1;
             System.out.println("Player Lives: " + playerLives);
-        }
-
-        // Kill off Player and exit GUI.
-        if (playerLives == 0) {
-            System.out.println("Game Lost!\nYou Died!");
-            Platform.exit();
         }
     }
 }

@@ -1,7 +1,6 @@
 package ie.gmit.sw.ai;
 
 import java.util.concurrent.ThreadLocalRandom;
-
 import ie.gmit.sw.ai.neural.CharacterManager;
 import javafx.concurrent.Task;
 
@@ -52,11 +51,12 @@ public class CharacterTask extends Task<Void> {
                     // This fires if the character can move to a cell, i.e. if it is not already occupied.
                     model.set(temp_row, temp_col, enemyID);
                     model.set(row, col, '\u0020');
+                    ghostLocation = temp_row + temp_col;
 
                     // Bring in action states from CharacterManager.
                     switch (CharacterManager.action) {
                         case "hide" -> {
-                            // Hide the enemy.
+                            // Make enemies disappear for a brief time.
                             model.set(temp_row, temp_col, (char) 0);
                             row = temp_row;
                             col = temp_col;
@@ -72,8 +72,6 @@ public class CharacterTask extends Task<Void> {
                             col = temp_col;
                         }
                     }
-
-                    ghostLocation = row + col;
                 } else {
                     // This fires if a move is not valid, i.e. if someone or some thing is in the way.
                     cmd.execute();

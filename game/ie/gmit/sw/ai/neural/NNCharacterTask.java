@@ -10,52 +10,43 @@ import org.encog.ml.data.basic.BasicMLDataSet;
 import org.encog.neural.networks.BasicNetwork;
 import org.encog.neural.networks.layers.BasicLayer;
 import org.encog.neural.networks.training.propagation.resilient.ResilientPropagation;
+import org.encog.util.simple.EncogUtility;
 
 /**
  * Class NNCharacterTask
  * Neural Network for the Characters.
+ * Handles the construction and testing of the NN.
  *
  * @author John Shields - G00348436
- *
- * Data set for the Neural Network Controlled Characters.
- *
- * Inputs:
- * 1) Energy (2 = Energized, 1 = Tired, 0 = Out of breath)
- * 2) Has a RedBull (1 = yes, 0 = no)
- * 3) Has a Gun (1 = yes, 0 = no)
- * 4) Number of Targets
- *
- * Outputs:
- * 0) Panic, 1) Attack, 2) Hide, 3) Run
  */
 
 public class NNCharacterTask {
+    private static BasicNetwork basicNetwork;
 
-    private static BasicNetwork network;
+    // Input Dataset - Energy, RedBull, Gun, Targets.
     private final double[][] data = {
-            // Energy, RedBull, Gun, Targets
-            {2, 0, 0, 0}, // Hide
-            {2, 0, 0, 1}, // Hide
-            {2, 0, 1, 1}, // Panic
-            {2, 0, 1, 2}, // Panic
-            {2, 1, 0, 2}, // Run
-            {2, 1, 0, 1}, // Hide
-            {1, 0, 0, 0}, // Hide
-            {1, 0, 0, 1}, // Run
-            {1, 0, 1, 1}, // Panic
-            {0, 0, 1, 2}, // Attack
-            {0, 1, 0, 2}, // Attack
-            {1, 1, 0, 1}, // Run
-            {0, 0, 0, 0}, // Hide
-            {0, 0, 0, 1}, // Run
-            {0, 0, 1, 1}, // Run
-            {0, 0, 1, 2}, // Attack
-            {0, 1, 0, 2}, // Attack
-            {0, 1, 0, 1} // Run
+            {2, 0, 0, 0}, // Energized = Hide
+            {2, 0, 0, 1}, // Energized and has a target = Hide
+            {2, 0, 1, 1}, // Energized, has a gun and has a target = Panic
+            {2, 0, 1, 2}, // Energized, has a gun and two targets = Panic
+            {2, 1, 0, 2}, // Energized, has a redBull and two targets = Run
+            {2, 1, 0, 1}, // Energized, has a redBull and a target = Hide
+            {1, 0, 0, 0}, // Tired = Hide
+            {1, 0, 0, 1}, // Tired and has a target = Run
+            {1, 0, 1, 1}, // Tired, has a gun and a target = Panic
+            {0, 0, 1, 2}, // Has a gun and two targets = Attack
+            {0, 1, 0, 2}, // Has a redBull and two targets = Attack
+            {1, 1, 0, 1}, // Tired, has a redBull = Run
+            {0, 0, 0, 0}, // Nothing = Hide
+            {0, 0, 0, 1}, // A target = Run
+            {0, 0, 1, 1}, // Has a gun and target = Run
+            {0, 0, 1, 2}, // Has a gun and two targets = Attack
+            {0, 1, 0, 2}, // Has a redBull and two targets = Attack
+            {0, 1, 0, 1}  // Has redBull and target = Run
     };
 
+    // Expected Output from Dataset - Panic, Attack, Hide, Run.
     private final double[][] expected = {
-            // Panic, Attack, Hide, Run
             {0.0, 0.0, 1.0, 0.0}, // Hide
             {0.0, 0.0, 1.0, 0.0}, // Hide
             {1.0, 0.0, 0.0, 0.0}, // Panic
@@ -76,48 +67,62 @@ public class NNCharacterTask {
             {0.0, 0.0, 0.0, 1.0} // Run
     };
 
-    // Create the NN.
-    BasicNetwork createNetwork() {
-        BasicNetwork network = new BasicNetwork();
-        // add layers
-        network.addLayer(new BasicLayer(null, true, 4));
-        network.addLayer(new BasicLayer(new ActivationSigmoid(), true, 2));
-        network.addLayer(new BasicLayer(new ActivationSigmoid(), false, 4));
-        network.getStructure().finalizeStructure();
-        network.reset();
+    /**
+     * declareNetworkTopology
+     * Build the Neural Network.
+     *
+     * Layer 1: Input Layer, no Activation function, Bias = True, Neurons = 4
+     * Layer 2: Hidden Layer, Sigmoidal Activation function, Bias = True, Neurons = 2
+     * Layer 3: Output Layer, Sigmoidal Activation function, Bias = False, Neurons = 4
+     *
+     * @return basicNetwork
+     */
+    private BasicNetwork declareNetworkTopology() {
+        basicNetwork = new BasicNetwork();
+        basicNetwork.addLayer(new BasicLayer(null, true, 4));
+        basicNetwork.addLayer(new BasicLayer(new ActivationSigmoid(), true, 2));
+        basicNetwork.addLayer(new BasicLayer(new ActivationSigmoid(), false, 4));
+        basicNetwork.getStructure().finalizeStructure();
+        basicNetwork.reset();
         System.out.println("[INFO] Network Created.");
-        return network;
+        return basicNetwork;
     }
 
+    /**
+     * neuralNetwork - Called in Runner.
+     * Construct, train and test the NN.
+     *
+     * Step 1: Declare Network Topology.
+     * Step 2: Create the training data set.
+     * Step 3: Training the NN.
+     * Step 4: Testing the NN.
+     */
     public void neuralNetwork() {
-        // Step 1: Declare Network Topology.
+        // Declare Network Topology.
         System.out.println("[INFO] Creating neural network...");
-        network = createNetwork();
+        basicNetwork = declareNetworkTopology();
 
-        // Step 2: Create the training data set.
+        // Create the training data set.
         System.out.println("[INFO] Creating training set...");
         MLDataSet trainingSet = new BasicMLDataSet(data, expected);
 
-        // Step 3: Training the NN.
+        // Training the NN.
         System.out.println("[INFO] Training the network...");
-        ResilientPropagation train = new ResilientPropagation(network, trainingSet);
-        double minError = 0.09;
-        int epoch = 1;
-        do {
-            train.iteration();
-            System.out.println("Epoch #" + epoch + " Error:" + train.getError());
-            epoch++;
-        } while (train.getError() > minError);
+        // Set up Resilient Back Propagation for training the NN with the Data Set.
+        ResilientPropagation train = new ResilientPropagation(basicNetwork, trainingSet);
+        // Train with an error rate of 0.09
+        EncogUtility.trainToError(train, 0.09);
         train.finishTraining();
-        System.out.println("[INFO] Training complete in " + epoch + " epochs with error=" + train.getError());
+        System.out.println("[INFO] Training complete.");
 
-        // Step 4: Test the NN.
+        // Testing the NN.
+        // Compares the MLData pair with the actual data from the Dataset and calculates the accuracy.
         System.out.println("[INFO] Testing the network...");
         double correct = 0;
         double total = 0;
         for (MLDataPair pair : trainingSet) {
             total++;
-            MLData output = network.compute(pair.getInput());
+            MLData output = basicNetwork.compute(pair.getInput());
             int y = (int) Math.round(output.getData(0));
             int yd = (int) pair.getIdeal().getData(0);
             if (y == yd) {
@@ -130,7 +135,7 @@ public class NNCharacterTask {
     }
 
     /**
-     * nnTask
+     * nnTask - Used in CharacterManager.
      * Returns NN output for a Character Task.
      *
      * @return NN classification of Data.
@@ -138,6 +143,6 @@ public class NNCharacterTask {
     public int nnTask(int energy, int redBull, int gun, int targets) {
         double[] input = {energy, redBull, gun, targets};
         MLData data = new BasicMLData(input);
-        return network.classify(data);
+        return basicNetwork.classify(data);
     }
 }
