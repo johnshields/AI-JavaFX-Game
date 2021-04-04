@@ -12,4 +12,4 @@
 * RULE 7 : IF playerLocation IS northWest AND mazeExit IS indexSpotOne THEN player IS redHot;
 
 ## Neural Networks
-* Figure out/find a way how to use them for the Game.
+* NN controls the Ghosts.
