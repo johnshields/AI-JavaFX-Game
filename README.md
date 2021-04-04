@@ -27,7 +27,8 @@ JavaFX Game that uses the AI technologies; Fuzzy Logic and Neural Networks to en
 # Run the Game
 ### Requirements
 * [Git](https://git-scm.com/downloads)
-* [JavaFX](https://gluonhq.com/products/javafx/)
+* [Java SDK 15](https://www.oracle.com/java/technologies/javase-jdk15-downloads.html)
+* [JavaFX 15](https://gluonhq.com/products/javafx/)
 * Encog and JFuzzyLogic are supplied in `workings/jars`
 
 #### Open a directory of your choice in Command-Line and enter:
@@ -39,7 +40,15 @@ $ git clone https://github.com/johnshields/AI-JavaFX-Game.git
 * Note update the JavaFX, Encog and JFuzzyLogic paths to yours
 ```bash
 $ cd workings/game
+```
+### Windows
+```bash
 $ java --module-path .;/Java/javafx-sdk-15.0.1/lib/;/Java/ai/encog/;/Java/ai/fuzzy/ --module gmit.software/ie.gmit.sw.ai.Runner
+```
+
+### Linux & Mac
+```bash
+$ java --module-path .:/Java/javafx-sdk-15.0.1/lib/:/Java/ai/encog/:/Java/ai/fuzzy/ --module gmit.software/ie.gmit.sw.ai.Runner
 ```
 
 ***
