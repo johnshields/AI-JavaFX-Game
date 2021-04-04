@@ -33,8 +33,8 @@ public class CharacterTask extends Task<Void> {
     @Override
     public Void call() throws Exception {
         /*
-         * This Task will remain alive until the call() method returns. This
-         * cannot happen as long as the loop control variable "alive" is set to true.
+         * This Task will remain alive until the call() method returns.
+         * This cannot happen as long as the loop control variable "alive" is set to true.
          */
         while (alive) {
             Thread.sleep(SLEEP_TIME);

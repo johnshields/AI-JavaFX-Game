@@ -9,7 +9,7 @@ public class Runner {
 
 	public static void main(String[] args) {
 		// Load and Parse FCL file.
-		fis = FIS.load("resources/fuzzy/tempRadius.fcl", true);
+		fis = FIS.load("./resources/fuzzy/tempRadius.fcl", true);
 		if(fis == null) {
 			System.err.println("Not able to load file: tempRadius.fcl");
 			return;

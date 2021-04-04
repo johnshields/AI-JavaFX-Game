@@ -1,4 +1,5 @@
 # IntelliJ IDE
 .idea/
 out/
-game.iml
+Java-AI-Game.iml
+src/META-INF/

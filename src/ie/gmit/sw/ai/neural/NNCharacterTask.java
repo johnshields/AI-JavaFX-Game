@@ -129,9 +129,8 @@ public class NNCharacterTask {
                 correct++;
             }
         }
-        // Shut down NN.
         System.out.println("[INFO] Testing Complete: Accuracy = " + ((correct / total) * 100));
-        Encog.getInstance().shutdown();
+        Encog.getInstance().shutdown(); // Shut down NN.
     }
 
     /**
