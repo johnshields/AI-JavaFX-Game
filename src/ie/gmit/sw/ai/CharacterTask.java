@@ -30,6 +30,20 @@ public class CharacterTask extends Task<Void> {
         this.cmd = cmd;
     }
 
+    // Bring in NN action states from CharacterManager.
+    private void switchActions() {
+        switch (CharacterManager.action) {
+            // Make enemies disappear for a brief time.
+            case "hide" -> enemyID = (char) 0;
+            // Turn enemies Pink when in panic state.
+            case "panic" -> enemyID = '\u0033';
+            // Turn enemies Orange when in run state.
+            case "run" -> enemyID = '\u0036';
+            // Turn enemies Red & Green when in hostile mode.
+            case "attack" -> enemyID = '\u0035';
+        }
+    }
+
     @Override
     public Void call() throws Exception {
         /*
@@ -51,35 +65,12 @@ public class CharacterTask extends Task<Void> {
                     // This fires if the character can move to a cell, i.e. if it is not already occupied.
                     model.set(temp_row, temp_col, enemyID);
                     model.set(row, col, '\u0020');
+                    row = temp_row;
+                    col = temp_col;
                     ghostLocation = temp_row + temp_col;
-
-                    // Bring in action states from CharacterManager.
-                    switch (CharacterManager.action) {
-                        case "hide" -> {
-                            // Make enemies disappear for a brief time.
-                            model.set(temp_row, temp_col, (char) 0);
-                            row = temp_row;
-                            col = temp_col;
-                        }
-                        case "panic" -> {
-                            // Turn enemies pink when in panic state.
-                            model.set(temp_row, temp_col,'\u0033');
-                            row = temp_row;
-                            col = temp_col;
-                        }
-                        case "run" -> {
-                            row = temp_row;
-                            col = temp_col;
-                        }
-                        case "attack" -> {
-                            // Turn enemies Red & Green when in hostile mode.
-                            model.set(temp_row, temp_col,'\u0035');
-                            row = temp_row;
-                            col = temp_col;
-                        }
-                    }
                 } else {
                     // This fires if a move is not valid, i.e. if someone or some thing is in the way.
+                    switchActions();
                     cmd.execute();
                 }
             }
