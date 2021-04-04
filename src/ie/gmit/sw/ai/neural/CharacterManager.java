@@ -69,6 +69,7 @@ public class CharacterManager implements Command {
 
     // Expected to transition to Hide.
     public void attack() {
+        action = "attack";
         energy = 2;
         redBull = 0;
         gun = 0;

@@ -71,6 +71,12 @@ public class CharacterTask extends Task<Void> {
                             row = temp_row;
                             col = temp_col;
                         }
+                        case "attack" -> {
+                            // Turn enemies Red & Green when in hostile mode.
+                            model.set(temp_row, temp_col,'\u0035');
+                            row = temp_row;
+                            col = temp_col;
+                        }
                     }
                 } else {
                     // This fires if a move is not valid, i.e. if someone or some thing is in the way.
