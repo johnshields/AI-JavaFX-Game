@@ -1,7 +1,12 @@
 package ie.gmit.sw.ai.dfs;
 
-public class RecursiveDFS {
+/**
+ * Class RecursiveDFS - Called in GameWindow.
+ *
+ * @author John Shields - G00348436
+ */
 
+public class RecursiveDFS {
     public static int goalNode;
 
     public RecursiveDFS(Maze maze) {

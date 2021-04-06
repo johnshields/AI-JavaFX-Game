@@ -1,5 +1,6 @@
 package ie.gmit.sw.ai;
 
+import ie.gmit.sw.ai.dfs.RecursiveDFS;
 import ie.gmit.sw.ai.fuzzy.MazeExitLocator;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -39,7 +40,7 @@ public class GameWindow extends Application {
 
         // set mazeExit at random index.
         mazeExit = (int) (30 * Math.random() + 1); // + 1 to avoid Index 0
-        //System.out.println("Maze Exit: " + mazeExit);
+        RecursiveDFS.runSearch();
 
         Sprite[] sprites = getSprites(); //Load the sprites from the res directory
         view.setSprites(sprites); //Add the sprites to the view

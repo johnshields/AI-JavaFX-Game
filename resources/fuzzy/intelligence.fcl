@@ -1,0 +1,38 @@
+FUNCTION_BLOCK character // Maps to a method
+
+    VAR_INPUT	// input params to a method
+         action : REAL;
+    END_VAR
+
+    VAR_OUTPUT  // return type from method
+        intelligence : REAL;
+    END_VAR
+
+    // actions from NN classification of Data.
+    FUZZIFY action
+        TERM panic := 0;
+        TERM attack := 1;
+        TERM hide := 2;
+        TERM run := 3;
+     END_FUZZIFY
+
+    DEFUZZIFY intelligence // method body
+        TERM low := 10;
+        TERM average := 20;
+    	TERM high := 30;
+    	TERM veryHigh := 40;
+    	METHOD : COGS;		// 'Center Of Gravity Sugeno' defuzzification method
+    	DEFAULT := 0;		// Default value is 0 (if no rule activates defuzzifier)
+    END_DEFUZZIFY
+
+    RULEBLOCK No1
+    	AND : MIN;	// 'min' for 'and'
+    	ACT : MIN;	// 'min' activation method
+    	ACCU : MAX;	// 'max' accumulation method
+    	RULE 1 : IF action IS panic THEN intelligence IS low;
+    	RULE 2 : IF action IS attack THEN intelligence IS average;
+    	RULE 3 : IF action IS run THEN intelligence IS high;
+    	RULE 4 : IF action IS hide THEN intelligence IS veryHigh;
+    END_RULEBLOCK
+
+END_FUNCTION_BLOCK

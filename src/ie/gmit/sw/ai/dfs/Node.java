@@ -3,6 +3,12 @@ package ie.gmit.sw.ai.dfs;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Class Node
+ *
+ * @author John Shields - G00348436
+ */
+
 public class Node {
     private final int nodeName;
     public static List<Node> children = new ArrayList<>();
@@ -22,14 +28,12 @@ public class Node {
         children.add(child);
     }
 
-
-    // The name of the node or vertex
+    // The name of the node or vertex.
     public int getNodeName() {
         return nodeName;
     }
 
-    // Marks whether a node has already been visited
-    // during a search.
+    // Marks whether a node has already been visited during a search.
     public boolean isVisited() {
         return visited;
     }

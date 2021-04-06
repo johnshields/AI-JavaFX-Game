@@ -18,7 +18,7 @@ public class CharacterManager implements Command {
     private int redBull;
     private int gun;
     private static int playerLives = 5;
-    public static String action = "";
+    public static int action;
 
     @Override
     public void execute() {
@@ -36,13 +36,13 @@ public class CharacterManager implements Command {
         // Kill off Player and exit GUI.
         if (playerLives == 0) {
             System.out.println("Game Lost!\nYou Died!");
-            //Platform.exit();
+            Platform.exit();
         }
     }
 
     // Expected to transition to Attack.
     public void panic() {
-        action = "panic";
+        action = 0;
         energy = 0;
         redBull = 0;
         gun = 1;
@@ -51,7 +51,7 @@ public class CharacterManager implements Command {
 
     // Expected to transition to Run.
     public void hide() {
-        action = "hide";
+        action = 2;
         energy = 0;
         redBull = 1;
         gun = 0;
@@ -60,7 +60,7 @@ public class CharacterManager implements Command {
 
     // Expected to transition to Panic.
     public void run() {
-        action = "run";
+        action = 3;
         energy = 2;
         redBull = 0;
         gun = 1;
@@ -69,7 +69,7 @@ public class CharacterManager implements Command {
 
     // Expected to transition to Hide.
     public void attack() {
-        action = "attack";
+        action = 1;
         energy = 2;
         redBull = 0;
         gun = 0;

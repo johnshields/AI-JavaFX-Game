@@ -5,16 +5,23 @@ import javafx.application.Application;
 import net.sourceforge.jFuzzyLogic.FIS;
 
 public class Runner {
-	public static FIS fis;
+	public static FIS fclPlayer;
+	public static FIS fclCharacter;
 
 	public static void main(String[] args) {
-		// Load and Parse FCL file.
-		fis = FIS.load("./resources/fuzzy/tempRadius.fcl", true);
-		if(fis == null) {
+		// Load and Parse FCL files.
+		fclPlayer = FIS.load("./resources/fuzzy/tempRadius.fcl", true);
+		if(fclPlayer == null) {
 			System.err.println("Not able to load file: tempRadius.fcl");
 			return;
 		}
 		System.out.println("[INFO] tempRadius.fcl loaded.");
+		fclCharacter = FIS.load("./resources/fuzzy/intelligence.fcl", true);
+		if(fclCharacter == null) {
+			System.err.println("Not able to load file: intelligence.fcl");
+			return;
+		}
+		System.out.println("[INFO] intelligence.fcl loaded.");
 
 		// Setup the NN.
 		NNCharacterTask nc = new NNCharacterTask();

@@ -3,6 +3,7 @@ package ie.gmit.sw.ai;
 import java.util.concurrent.ThreadLocalRandom;
 
 import ie.gmit.sw.ai.dfs.RecursiveDFS;
+import ie.gmit.sw.ai.fuzzy.CharacterLogic;
 import ie.gmit.sw.ai.neural.CharacterManager;
 import javafx.concurrent.Task;
 
@@ -24,6 +25,7 @@ public class CharacterTask extends Task<Void> {
     private Command cmd;
     public static int ghostLocation;
     private boolean smart;
+    private boolean alreadySaid;
 
     public CharacterTask(GameModel model, char enemyID, int row, int col, Command cmd) {
         this.model = model;
@@ -36,33 +38,36 @@ public class CharacterTask extends Task<Void> {
     // Bring in NN action states from CharacterManager.
     private void switchActions() {
         switch (CharacterManager.action) {
-            // Make enemies disappear for a brief time.
-            case "hide" -> {
-                enemyID = (char) 0;
-                smart = true;
-            }
             // Turn enemies Pink when in panic state.
-            case "panic" -> {
-                enemyID = '\u0033';
-                smart = false;
-            }
-            // Turn enemies Orange when in run state.
-            case "run" -> {
-                enemyID = '\u0036';
-                smart = true;
-            }
+            case 0 -> enemyID = '\u0033';
             // Turn enemies Red & Green when in hostile mode.
-            case "attack" -> {
-                enemyID = '\u0035';
-                smart = false;
-            }
+            case 1 -> enemyID = '\u0035';
+            // Make enemies disappear for a brief time.
+            case 2 -> enemyID = (char) 0;
+            // Turn enemies Orange when in run state.
+            case 3 -> enemyID = '\u0036';
+        }
+    }
+
+    // Bring in Fuzzy Logic to analyse character's actions.
+    private void intelligenceIs() {
+        CharacterLogic cl = new CharacterLogic();
+        int intelligence = cl.getIntelligence(CharacterManager.action);
+
+        if(intelligence == 10) {
+            smart = false;
+        } else if (intelligence == 20) {
+            smart = false;
+        } else if (intelligence == 30) {
+            smart = true;
+        } else if (intelligence == 40) {
+            smart = true;
         }
     }
 
     // Smart enemy gives the player a helping hand if they cross paths.
     private void smartGhost() {
-        if (GameWindow.playerLocation == ghostLocation && smart) {
-            RecursiveDFS.runSearch();
+        if (GameWindow.playerLocation == ghostLocation && smart && !alreadySaid) {
             if (RecursiveDFS.goalNode >= 20) {
                 System.out.println("Maze exit is center right");
             } else if (RecursiveDFS.goalNode >= 10) {
@@ -70,6 +75,7 @@ public class CharacterTask extends Task<Void> {
             } else if (RecursiveDFS.goalNode >= 1) {
                 System.out.println("Maze exit is very top right");
             }
+            alreadySaid = true;
         }
     }
 
@@ -99,8 +105,9 @@ public class CharacterTask extends Task<Void> {
                     ghostLocation = temp_row + temp_col;
                 } else {
                     // This fires if a move is not valid, i.e. if someone or some thing is in the way.
-                    smartGhost();
                     switchActions();
+                    intelligenceIs();
+                    smartGhost();
                     cmd.execute();
                 }
             }

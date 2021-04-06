@@ -2,6 +2,12 @@ package ie.gmit.sw.ai.dfs;
 
 import ie.gmit.sw.ai.GameWindow;
 
+/**
+ * Class Maze
+ *
+ * @author John Shields - G00348436
+ */
+
 public class Maze {
     private static final Maze maze = new Maze();
     private final Node s;
