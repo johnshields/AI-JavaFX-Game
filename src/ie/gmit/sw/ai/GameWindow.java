@@ -37,7 +37,7 @@ public class GameWindow extends Application {
         scene.setOnKeyPressed(e -> keyPressed(e)); //Add a key listener
         stage.setScene(scene);
 
-        // set mazeExit at random index. // TODO - Get mazeExit set up with Extra AI stuff.
+        // set mazeExit at random index.
         mazeExit = (int) (30 * Math.random() + 1); // + 1 to avoid Index 0
         //System.out.println("Maze Exit: " + mazeExit);
 

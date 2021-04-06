@@ -13,3 +13,7 @@
 
 ## Neural Networks
 * NN controls the Ghosts.
+
+## AI Extras
+* Plant the Maze Exit instead of it being randomly generated
+  

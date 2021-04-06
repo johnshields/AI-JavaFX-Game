@@ -1,6 +1,8 @@
 package ie.gmit.sw.ai;
 
 import java.util.concurrent.ThreadLocalRandom;
+
+import ie.gmit.sw.ai.dfs.RecursiveDFS;
 import ie.gmit.sw.ai.neural.CharacterManager;
 import javafx.concurrent.Task;
 
@@ -21,6 +23,7 @@ public class CharacterTask extends Task<Void> {
     private int col;
     private Command cmd;
     public static int ghostLocation;
+    private boolean smart;
 
     public CharacterTask(GameModel model, char enemyID, int row, int col, Command cmd) {
         this.model = model;
@@ -34,13 +37,39 @@ public class CharacterTask extends Task<Void> {
     private void switchActions() {
         switch (CharacterManager.action) {
             // Make enemies disappear for a brief time.
-            case "hide" -> enemyID = (char) 0;
+            case "hide" -> {
+                enemyID = (char) 0;
+                smart = true;
+            }
             // Turn enemies Pink when in panic state.
-            case "panic" -> enemyID = '\u0033';
+            case "panic" -> {
+                enemyID = '\u0033';
+                smart = false;
+            }
             // Turn enemies Orange when in run state.
-            case "run" -> enemyID = '\u0036';
+            case "run" -> {
+                enemyID = '\u0036';
+                smart = true;
+            }
             // Turn enemies Red & Green when in hostile mode.
-            case "attack" -> enemyID = '\u0035';
+            case "attack" -> {
+                enemyID = '\u0035';
+                smart = false;
+            }
+        }
+    }
+
+    // Smart enemy gives the player a helping hand if they cross paths.
+    private void smartGhost() {
+        if (GameWindow.playerLocation == ghostLocation && smart) {
+            RecursiveDFS.runSearch();
+            if (RecursiveDFS.goalNode >= 20) {
+                System.out.println("Maze exit is center right");
+            } else if (RecursiveDFS.goalNode >= 10) {
+                System.out.println("Maze exit is top right");
+            } else if (RecursiveDFS.goalNode >= 1) {
+                System.out.println("Maze exit is very top right");
+            }
         }
     }
 
@@ -60,16 +89,17 @@ public class CharacterTask extends Task<Void> {
                 } else {
                     temp_col += rand.nextBoolean() ? 1 : -1;
                 }
-
                 if (model.isValidMove(row, col, temp_row, temp_col, enemyID)) {
                     // This fires if the character can move to a cell, i.e. if it is not already occupied.
                     model.set(temp_row, temp_col, enemyID);
                     model.set(row, col, '\u0020');
                     row = temp_row;
                     col = temp_col;
+
                     ghostLocation = temp_row + temp_col;
                 } else {
                     // This fires if a move is not valid, i.e. if someone or some thing is in the way.
+                    smartGhost();
                     switchActions();
                     cmd.execute();
                 }

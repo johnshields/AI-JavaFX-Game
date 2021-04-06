@@ -36,7 +36,7 @@ public class CharacterManager implements Command {
         // Kill off Player and exit GUI.
         if (playerLives == 0) {
             System.out.println("Game Lost!\nYou Died!");
-            Platform.exit();
+            //Platform.exit();
         }
     }
 
