@@ -1,3 +1,6 @@
+// FUNCTION BLOCK to analyses the Neural Network's actions.
+// John Shields - G00348436
+
 FUNCTION_BLOCK character // Maps to a method
 
     VAR_INPUT	// input params to a method
@@ -8,7 +11,7 @@ FUNCTION_BLOCK character // Maps to a method
         intelligence : REAL;
     END_VAR
 
-    // actions from NN classification of Data.
+    // Actions from NN classification of output Data.
     FUZZIFY action
         TERM panic := 0;
         TERM attack := 1;

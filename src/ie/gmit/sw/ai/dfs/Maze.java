@@ -4,6 +4,7 @@ import ie.gmit.sw.ai.GameWindow;
 
 /**
  * Class Maze
+ * Set up the Maze as Nodes to locate the goal node (GameWindow.mazeExit).
  *
  * @author John Shields - G00348436
  */
@@ -17,8 +18,8 @@ public class Maze {
     }
 
     public Maze() {
-        s = new Node(15);
-        Node t = new Node(GameWindow.mazeExit);
+        s = new Node(0);
+        Node t = new Node(GameWindow.getMazeExit());
         t.setGoalNode(true);
         Node node1 = new Node(1);
         Node node2 = new Node(2);
@@ -83,7 +84,7 @@ public class Maze {
 
         node9.addChildNode(node5);
         node9.addChildNode(node7);
-        node9.addChildNode(t); // Goal Node
+        node9.addChildNode(t);
         t.addChildNode(node9);
     }
 

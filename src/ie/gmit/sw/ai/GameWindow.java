@@ -20,8 +20,24 @@ public class GameWindow extends Application {
     private GameModel model;
     private int currentRow;
     private int currentCol;
-    public static int mazeExit;
-    public static int playerLocation;
+    private static int mazeExit;
+    private static int playerLocation;
+
+    public static int getMazeExit() {
+        return mazeExit;
+    }
+
+    public static void setMazeExit(int mazeExit) {
+        GameWindow.mazeExit = mazeExit;
+    }
+
+    public static int getPlayerLocation() {
+        return playerLocation;
+    }
+
+    public static void setPlayerLocation(int playerLocation) {
+        GameWindow.playerLocation = playerLocation;
+    }
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -38,9 +54,9 @@ public class GameWindow extends Application {
         scene.setOnKeyPressed(e -> keyPressed(e)); //Add a key listener
         stage.setScene(scene);
 
-        // set mazeExit at random index.
-        mazeExit = (int) (30 * Math.random() + 1); // + 1 to avoid Index 0
-        RecursiveDFS.runSearch();
+        // Set mazeExit at a random index.
+        setMazeExit((int) (30 * Math.random() + 1)); // + 1 to avoid Index 0
+        RecursiveDFS.runSearch(); // Run the search to find the Maze Exit.
 
         Sprite[] sprites = getSprites(); //Load the sprites from the res directory
         view.setSprites(sprites); //Add the sprites to the view
@@ -71,14 +87,15 @@ public class GameWindow extends Application {
         }
         updateView();
 
-        // get Player Location.
-        playerLocation = currentRow + currentCol;
+        // Get Player's Location every time a key is pressed.
+        setPlayerLocation(currentRow + currentCol);
         // Call in mazeExitLocator.
         MazeExitLocator mel = new MazeExitLocator();
         mel.mazeExitLocator();
     }
 
-    private void placePlayer() {  //Place the main player character
+    // Place the main player character
+    private void placePlayer() {
         currentRow = (int) (DEFAULT_SIZE * Math.random());
         currentCol = (int) (DEFAULT_SIZE * Math.random());
         model.set(currentRow, currentCol, PLAYER_ID); //Player is at index 1

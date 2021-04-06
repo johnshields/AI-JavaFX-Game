@@ -5,8 +5,16 @@ import net.sourceforge.jFuzzyLogic.FIS;
 import net.sourceforge.jFuzzyLogic.FunctionBlock;
 import net.sourceforge.jFuzzyLogic.rule.Variable;
 
+/**
+ * Class CharacterLogic - Fuzzy Logic Controller
+ * Sets up Variables from intelligence.fcl (loaded in Runner) and
+ * returns an int value for the actions from the NN classification of output Data.
+ *
+ * @author John Shields - G00348436
+ */
+
 public class CharacterLogic {
-    private final FIS fis = Runner.fclCharacter;
+    private final FIS fis = Runner.getFclCharacter();
 
     /**
      * getIntelligence

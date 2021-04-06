@@ -18,15 +18,23 @@ public class CharacterManager implements Command {
     private int redBull;
     private int gun;
     private static int playerLives = 5;
-    public static int action;
+    private static int action;
+
+    public static int getAction() {
+        return action;
+    }
+
+    public static void setAction(int action) {
+        CharacterManager.action = action;
+    }
 
     @Override
     public void execute() {
         // Get an output value from NN to control the characters based on the changing stats.
-        NNCharacterTask nc = new NNCharacterTask();
-        int output = nc.nnTask(energy, redBull, gun, target);
+        NNCharacterTask nn = new NNCharacterTask();
+        setAction(nn.nnTask(energy, redBull, gun, target));
 
-        switch (output) {
+        switch (getAction()) {
             case 0 -> panic();
             case 1 -> attack();
             case 2 -> hide();
@@ -42,7 +50,6 @@ public class CharacterManager implements Command {
 
     // Expected to transition to Attack.
     public void panic() {
-        action = 0;
         energy = 0;
         redBull = 0;
         gun = 1;
@@ -51,7 +58,6 @@ public class CharacterManager implements Command {
 
     // Expected to transition to Run.
     public void hide() {
-        action = 2;
         energy = 0;
         redBull = 1;
         gun = 0;
@@ -60,7 +66,6 @@ public class CharacterManager implements Command {
 
     // Expected to transition to Panic.
     public void run() {
-        action = 3;
         energy = 2;
         redBull = 0;
         gun = 1;
@@ -69,13 +74,12 @@ public class CharacterManager implements Command {
 
     // Expected to transition to Hide.
     public void attack() {
-        action = 1;
         energy = 2;
         redBull = 0;
         gun = 0;
         target = 1;
         // if Player is in range take off a life.
-        if (CharacterTask.ghostLocation == GameWindow.playerLocation) {
+        if (CharacterTask.getGhostLocation() == GameWindow.getPlayerLocation()) {
             playerLives = playerLives - 1;
             System.out.println("Player Lives: " + playerLives);
         }

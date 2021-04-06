@@ -5,27 +5,43 @@ import javafx.application.Application;
 import net.sourceforge.jFuzzyLogic.FIS;
 
 public class Runner {
-	public static FIS fclPlayer;
-	public static FIS fclCharacter;
+	private static FIS fclPlayer;
+	private static FIS fclCharacter;
+
+	public static FIS getFclPlayer() {
+		return fclPlayer;
+	}
+
+	public static void setFclPlayer(FIS fclPlayer) {
+		Runner.fclPlayer = fclPlayer;
+	}
+
+	public static FIS getFclCharacter() {
+		return fclCharacter;
+	}
+
+	public static void setFclCharacter(FIS fclCharacter) {
+		Runner.fclCharacter = fclCharacter;
+	}
 
 	public static void main(String[] args) {
 		// Load and Parse FCL files.
-		fclPlayer = FIS.load("./resources/fuzzy/tempRadius.fcl", true);
-		if(fclPlayer == null) {
+		setFclPlayer(FIS.load("./resources/fuzzy/tempRadius.fcl", true));
+		if(getFclPlayer() == null) {
 			System.err.println("Not able to load file: tempRadius.fcl");
 			return;
 		}
 		System.out.println("[INFO] tempRadius.fcl loaded.");
-		fclCharacter = FIS.load("./resources/fuzzy/intelligence.fcl", true);
-		if(fclCharacter == null) {
+		setFclCharacter(FIS.load("./resources/fuzzy/intelligence.fcl", true));
+		if(getFclCharacter() == null) {
 			System.err.println("Not able to load file: intelligence.fcl");
 			return;
 		}
 		System.out.println("[INFO] intelligence.fcl loaded.");
 
 		// Setup the NN.
-		NNCharacterTask nc = new NNCharacterTask();
-		nc.neuralNetwork();
+		NNCharacterTask nn = new NNCharacterTask();
+		nn.neuralNetwork();
 
 		// Necessary try catch to get .jar file to run from CLI.
 		try {

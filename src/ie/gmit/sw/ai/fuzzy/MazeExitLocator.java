@@ -14,7 +14,7 @@ public class MazeExitLocator {
     public void mazeExitLocator() {
         TempRadius tr = new TempRadius();
         // Set inputs for the Fuzzy Logic Controller.
-        int fuzzyValue = tr.getTempRadius(GameWindow.playerLocation, GameWindow.mazeExit);
+        int fuzzyValue = tr.getTempRadius(GameWindow.getPlayerLocation(), GameWindow.getMazeExit());
 
         // if statement to use getTempRadius return value to determinate the Player's tempRadius.
         if (fuzzyValue >= 180) {
@@ -35,7 +35,7 @@ public class MazeExitLocator {
             System.out.println("Player is red hot");
         }
         // if Player is at the exit of the maze (randomly generated) game is won.
-        if (GameWindow.playerLocation == GameWindow.mazeExit) {
+        if (GameWindow.getPlayerLocation() == GameWindow.getMazeExit()) {
             System.out.println("You escaped the Maze!\nGame Won!");
             Platform.exit(); // Exit GUI.
         }
