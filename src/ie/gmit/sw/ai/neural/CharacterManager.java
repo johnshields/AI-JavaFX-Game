@@ -18,23 +18,15 @@ public class CharacterManager implements Command {
     private int redBull;
     private int gun;
     private static int playerLives = 5;
-    private static int action;
-
-    public static int getAction() {
-        return action;
-    }
-
-    public static void setAction(int action) {
-        CharacterManager.action = action;
-    }
+    public static int action;
 
     @Override
     public void execute() {
         // Get an output value from NN to control the characters based on the changing stats.
         NNCharacterTask nn = new NNCharacterTask();
-        setAction(nn.nnTask(energy, redBull, gun, target));
+        action = nn.nnTask(energy, redBull, gun, target);
 
-        switch (getAction()) {
+        switch (action) {
             case 0 -> panic();
             case 1 -> attack();
             case 2 -> hide();
@@ -79,7 +71,7 @@ public class CharacterManager implements Command {
         gun = 0;
         target = 1;
         // if Player is in range take off a life.
-        if (CharacterTask.getGhostLocation() == GameWindow.getPlayerLocation()) {
+        if (CharacterTask.ghostLocation == GameWindow.playerLocation) {
             playerLives = playerLives - 1;
             System.out.println("Player Lives: " + playerLives);
         }

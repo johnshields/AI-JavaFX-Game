@@ -19,7 +19,7 @@ public class Maze {
 
     public Maze() {
         s = new Node(0);
-        Node t = new Node(GameWindow.getMazeExit());
+        Node t = new Node(GameWindow.mazeExit);
         t.setGoalNode(true);
         Node node1 = new Node(1);
         Node node2 = new Node(2);

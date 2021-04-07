@@ -20,24 +20,8 @@ public class GameWindow extends Application {
     private GameModel model;
     private int currentRow;
     private int currentCol;
-    private static int mazeExit;
-    private static int playerLocation;
-
-    public static int getMazeExit() {
-        return mazeExit;
-    }
-
-    public static void setMazeExit(int mazeExit) {
-        GameWindow.mazeExit = mazeExit;
-    }
-
-    public static int getPlayerLocation() {
-        return playerLocation;
-    }
-
-    public static void setPlayerLocation(int playerLocation) {
-        GameWindow.playerLocation = playerLocation;
-    }
+    public static int mazeExit;
+    public static int playerLocation;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -55,7 +39,7 @@ public class GameWindow extends Application {
         stage.setScene(scene);
 
         // Set mazeExit at a random index.
-        setMazeExit((int) (30 * Math.random() + 1)); // + 1 to avoid Index 0
+        mazeExit = (int) (30 * Math.random() + 1); // + 1 to avoid Index 0
         RecursiveDFS.runSearch(); // Run the search to find the Maze Exit.
 
         Sprite[] sprites = getSprites(); //Load the sprites from the res directory
@@ -88,7 +72,7 @@ public class GameWindow extends Application {
         updateView();
 
         // Get Player's Location every time a key is pressed.
-        setPlayerLocation(currentRow + currentCol);
+        playerLocation = currentRow + currentCol;
         // Call in mazeExitLocator.
         MazeExitLocator mel = new MazeExitLocator();
         mel.mazeExitLocator();

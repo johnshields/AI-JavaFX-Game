@@ -23,7 +23,7 @@ public class CharacterTask extends Task<Void> {
     private int row;
     private int col;
     private Command cmd;
-    private static int ghostLocation;
+    public static int ghostLocation;
     private boolean smart;
     private boolean alreadySaid = false;
 
@@ -35,18 +35,10 @@ public class CharacterTask extends Task<Void> {
         this.cmd = cmd;
     }
 
-    public static int getGhostLocation() {
-        return ghostLocation;
-    }
-
-    public static void setGhostLocation(int ghostLocation) {
-        CharacterTask.ghostLocation = ghostLocation;
-    }
-
     // Bring in NN action states from CharacterManager
     // to make player aware of their current stats.
     private void switchActions() {
-        switch (CharacterManager.getAction()) {
+        switch (CharacterManager.action) {
             // Turn enemies Pink when in panic state.
             case 0 -> enemyID = '\u0033';
             // Turn enemies Red & Green when in hostile mode.
@@ -62,7 +54,7 @@ public class CharacterTask extends Task<Void> {
     private void intelligenceIs() {
         // Set input for the Fuzzy Logic Controller.
         CharacterLogic cl = new CharacterLogic();
-        int intelligence = cl.getIntelligence(CharacterManager.getAction());
+        int intelligence = cl.getIntelligence(CharacterManager.action);
 
         if (intelligence == 10) {
             smart = false;
@@ -78,7 +70,7 @@ public class CharacterTask extends Task<Void> {
     // Smart enemy gives the player a helping hand if they cross paths
     // with the help of RecursiveDFS.
     private void smartGhost() {
-        if (GameWindow.getPlayerLocation() == getGhostLocation() && smart && !alreadySaid) {
+        if (GameWindow.playerLocation == ghostLocation && smart && !alreadySaid) {
             if (RecursiveDFS.getGoalNode() >= 20) {
                 System.out.println("Maze exit is center right");
             } else if (RecursiveDFS.getGoalNode() >= 10) {
@@ -113,7 +105,7 @@ public class CharacterTask extends Task<Void> {
                     row = temp_row;
                     col = temp_col;
 
-                    setGhostLocation(temp_row + temp_col);
+                    ghostLocation = temp_row + temp_col;
                 } else {
                     // This fires if a move is not valid, i.e. if someone or some thing is in the way.
                     switchActions();
