@@ -9,24 +9,16 @@ package ie.gmit.sw.ai.dfs;
  */
 
 public class RecursiveDFS {
-    private static int goalNode;
+    public static int goalNode;
 
     public RecursiveDFS(Maze maze) {
         search(maze.getStartNode());
     }
 
-    public static int getGoalNode() {
-        return goalNode;
-    }
-
-    public static void setGoalNode(int goalNode) {
-        RecursiveDFS.goalNode = goalNode;
-    }
-
     // Search through the Maze's Nodes.
     public void search(Node node) {
         if (node.isGoalNode()) {
-            setGoalNode(node.getNodeName());
+            goalNode = node.getNodeName();
         } else {
             if (!node.isVisited()) {
                 node.setVisited(true);

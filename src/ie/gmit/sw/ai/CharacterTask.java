@@ -71,11 +71,11 @@ public class CharacterTask extends Task<Void> {
     // with the help of RecursiveDFS.
     private void smartGhost() {
         if (GameWindow.playerLocation == ghostLocation && smart && !alreadySaid) {
-            if (RecursiveDFS.getGoalNode() >= 20) {
+            if (RecursiveDFS.goalNode >= 20) {
                 System.out.println("Maze exit is center right");
-            } else if (RecursiveDFS.getGoalNode() >= 10) {
+            } else if (RecursiveDFS.goalNode >= 10) {
                 System.out.println("Maze exit is top right");
-            } else if (RecursiveDFS.getGoalNode() >= 1) {
+            } else if (RecursiveDFS.goalNode >= 1) {
                 System.out.println("Maze exit is very top right");
             }
             alreadySaid = true;

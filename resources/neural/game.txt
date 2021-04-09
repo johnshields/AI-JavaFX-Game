@@ -1,37 +1,63 @@
 /*
- * 	------------------------------------------------------------------------
- * 	B.Sc. (Hons) in Software Development - Artificial Intelligence
- * 	------------------------------------------------------------------------
- *  
- *  Data set for the Neural Network Game Action Lab
+ *  Data set for Neural Network's controlling of the characters actions.
  * 
  *  Inputs
  *  -------------
- *  1) Health (2 = Healthy, 1 = Minor Injuries, 0 = Serious Injuries)
- *  2) Has a Sword (1 = yes, 0 = no)
+ *  1) Health (2 = Energized, 1 = Tired, 0 = Out of Breath)
+ *  2) Has a RedBull (1 = yes, 0 = no)
  *  3) Has a Gun (1 = yes, 0 = no)
- *  4) Number of Enemies (This value may need to be normalized)
+ *  4) Number of Targets
  *  
  *  Outputs
  *  -------------
- *  1) Panic
- *  2) Attack
- *  3) Hide
- *  4) Run
- *  
+ *  0) Panic
+ *  1) Attack
+ *  2) Hide
+ *  3) Run
  */
 
-private double[][] data = { //Health, Sword, Gun, Enemies
-		{ 2, 0, 0, 0 }, { 2, 0, 0, 1 }, { 2, 0, 1, 1 }, { 2, 0, 1, 2 }, { 2, 1, 0, 2 },
-		{ 2, 1, 0, 1 }, { 1, 0, 0, 0 }, { 1, 0, 0, 1 }, { 1, 0, 1, 1 }, { 1, 0, 1, 2 }, 
-		{ 1, 1, 0, 2 }, { 1, 1, 0, 1 }, { 0, 0, 0, 0 }, { 0, 0, 0, 1 }, { 0, 0, 1, 1 }, 
-		{ 0, 0, 1, 2 }, { 0, 1, 0, 2 }, { 0, 1, 0, 1 } };
+// Input Dataset - Energy, RedBull, Gun, Targets.
+private final double[][] data = {
+        {2, 0, 0, 0}, // Energized = Hide
+        {2, 0, 0, 1}, // Energized and has a target = Hide
+        {2, 0, 1, 1}, // Energized, has a gun and has a target = Panic
+        {2, 0, 1, 2}, // Energized, has a gun and two targets = Panic
+        {2, 1, 0, 2}, // Energized, has a redBull and two targets = Run
+        {2, 1, 0, 1}, // Energized, has a redBull and a target = Hide
+        {1, 0, 0, 0}, // Tired = Hide
+        {1, 0, 0, 1}, // Tired and has a target = Run
+        {1, 0, 1, 1}, // Tired, has a gun and a target = Panic
+        {0, 0, 1, 2}, // Has a gun and two targets = Attack
+        {0, 1, 0, 2}, // Has a redBull and two targets = Attack
+        {1, 1, 0, 1}, // Tired, has a redBull = Run
+        {0, 0, 0, 0}, // Nothing = Hide
+        {0, 0, 0, 1}, // A target = Run
+        {0, 0, 1, 1}, // Has a gun and target = Run
+        {0, 0, 1, 2}, // Has a gun and two targets = Attack
+        {0, 1, 0, 2}, // Has a redBull and two targets = Attack
+        {0, 1, 0, 1}  // Has redBull and target = Run
+};
 
-private double[][] expected = { //Panic, Attack, Hide, Run
-		{ 0.0, 0.0, 1.0, 0.0 }, { 0.0, 0.0, 1.0, 0.0 }, { 1.0, 0.0, 0.0, 0.0 }, { 1.0, 0.0, 0.0, 0.0 }, 
-		{ 0.0, 0.0, 0.0, 1.0 }, { 1.0, 0.0, 0.0, 0.0 }, { 0.0, 0.0, 1.0, 0.0 }, { 0.0, 0.0, 0.0, 1.0 }, 
-		{ 1.0, 0.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0, 1.0 }, { 0.0, 0.0, 0.0, 1.0 }, { 0.0, 0.0, 0.0, 1.0 }, 
-		{ 0.0, 0.0, 1.0, 0.0 }, { 0.0, 0.0, 0.0, 1.0 }, { 0.0, 0.0, 0.0, 1.0 }, { 0.0, 1.0, 0.0, 0.0 }, 
-		{ 0.0, 1.0, 0.0, 0.0 }, { 0.0, 0.0, 0.0, 1.0 } };
+// Expected Output from Dataset - Panic, Attack, Hide, Run.
+private final double[][] expected = {
+        {0.0, 0.0, 1.0, 0.0}, // Hide
+        {0.0, 0.0, 1.0, 0.0}, // Hide
+        {1.0, 0.0, 0.0, 0.0}, // Panic
+        {1.0, 0.0, 0.0, 0.0}, // Panic
+        {0.0, 0.0, 0.0, 1.0}, // Run
+        {1.0, 0.0, 0.0, 0.0}, // Hide
+        {0.0, 0.0, 1.0, 0.0}, // Hide
+        {0.0, 0.0, 0.0, 1.0}, // Run
+        {1.0, 0.0, 0.0, 0.0}, // Panic
+        {0.0, 1.0, 0.0, 0.0}, // Attack
+        {0.0, 1.0, 0.0, 0.0}, // Attack
+        {0.0, 0.0, 0.0, 1.0}, // Run
+        {0.0, 0.0, 1.0, 0.0}, // Hide
+        {0.0, 0.0, 0.0, 1.0}, // Run
+        {0.0, 0.0, 0.0, 1.0}, // Run
+        {0.0, 1.0, 0.0, 0.0}, // Attack
+        {0.0, 1.0, 0.0, 0.0}, // Attack
+        {0.0, 0.0, 0.0, 1.0} // Run
+};
 
 		

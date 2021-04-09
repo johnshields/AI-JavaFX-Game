@@ -1,3 +1,6 @@
+// FUNCTION BLOCK to determinate the Player's tempRadius to the Maze Exit.
+// John Shields - G00348436
+
 FUNCTION_BLOCK tempRadius // Maps to a method
 
     VAR_INPUT	// input params to a method
