@@ -3,10 +3,10 @@
  * 
  *  Inputs
  *  -------------
- *  1) Health (2 = Energized, 1 = Tired, 0 = Out of Breath)
- *  2) Has a RedBull (1 = yes, 0 = no)
- *  3) Has a Gun (1 = yes, 0 = no)
- *  4) Number of Targets
+ *  0) Health (2 = Energized, 1 = Tired, 0 = Out of Breath)
+ *  1) Has a RedBull (1 = yes, 0 = no)
+ *  2) Has a Gun (1 = yes, 0 = no)
+ *  3) Number of Targets
  *  
  *  Outputs
  *  -------------

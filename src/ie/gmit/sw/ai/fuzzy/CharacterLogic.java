@@ -14,7 +14,7 @@ import net.sourceforge.jFuzzyLogic.rule.Variable;
  */
 
 public class CharacterLogic {
-    private final FIS fis = Runner.fclCharacter;
+    private final FIS fis = Runner.intelligenceFCL;
 
     /**
      * getIntelligence

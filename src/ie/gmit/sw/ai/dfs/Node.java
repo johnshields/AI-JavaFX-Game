@@ -50,7 +50,7 @@ public class Node {
         return goalNode;
     }
 
-    // Set goal node - Are you the goal node?
+    // Set goal node.
     public void setGoalNode(boolean goalNode) {
         this.goalNode = goalNode;
     }

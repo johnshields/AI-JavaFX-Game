@@ -67,7 +67,7 @@ public class CharacterTask extends Task<Void> {
         }
     }
 
-    // Smart enemy gives the player a helping hand if they cross paths
+    // Smart enemy (Ghost) gives the player a helping hand if they cross paths
     // with the help of RecursiveDFS.
     private void smartGhost() {
         if (GameWindow.playerLocation == ghostLocation && smart && !alreadySaid) {
@@ -104,7 +104,6 @@ public class CharacterTask extends Task<Void> {
                     model.set(row, col, '\u0020');
                     row = temp_row;
                     col = temp_col;
-
                     ghostLocation = temp_row + temp_col;
                 } else {
                     // This fires if a move is not valid, i.e. if someone or some thing is in the way.

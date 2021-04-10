@@ -4,7 +4,7 @@ import javafx.scene.image.Image;
 
 
 /*
- * Sprite container for the game. You should not have to alter anything in this class.
+ * Sprite container for the game.
  */
 public class Sprite {
 	private String name; //The name of this sprite

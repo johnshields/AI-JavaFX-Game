@@ -2,7 +2,7 @@ package ie.gmit.sw.ai.dfs;
 
 /**
  * Class RecursiveDFS - Called in GameWindow.
- * Uninformed Searching – Depth First Search
+ * Uninformed Searching – Depth-First Search
  * Use Recursion to find the Goal Node (GameWindow.mazeExit).
  *
  * @author John Shields - G00348436
@@ -33,7 +33,7 @@ public class RecursiveDFS {
         }
     }
 
-    // Run the search - used in CharacterTask.
+    // Run the search - Called in GameWindow - used in CharacterTask.
     public static void runSearch() {
         Maze maze = Maze.getInstance();
         RecursiveDFS search = new RecursiveDFS(maze);

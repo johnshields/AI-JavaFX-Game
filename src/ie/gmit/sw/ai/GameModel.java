@@ -78,7 +78,7 @@ public class GameModel {
 			if (model[row][col] == replace){
 				model[row][col] = enemyID;
 
-				// Call in the CharacterManager controlled by NN.
+				// Call in the CharacterManager controlled by NNCharacterTask.
 				tasks.add(new CharacterTask(this, enemyID, row, col, new CharacterManager()));
 				counter++;
 			}

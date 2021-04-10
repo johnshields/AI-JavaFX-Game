@@ -14,7 +14,7 @@ import net.sourceforge.jFuzzyLogic.rule.Variable;
  */
 
 public class TempRadius {
-    private final FIS fis = Runner.fclPlayer;
+    private final FIS fis = Runner.tempRadiusFCL;
 
     /**
      * getTempRadius

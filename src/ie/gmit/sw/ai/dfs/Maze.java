@@ -17,6 +17,7 @@ public class Maze {
         return maze;
     }
 
+    // Maze of Nodes.
     public Maze() {
         s = new Node(0);
         Node t = new Node(GameWindow.mazeExit);
@@ -88,6 +89,12 @@ public class Maze {
         t.addChildNode(node9);
     }
 
+
+    /**
+     * getStartNode
+     *
+     * @return s (Start Node)
+     */
     public Node getStartNode() {
         return s;
     }

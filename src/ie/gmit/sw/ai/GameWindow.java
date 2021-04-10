@@ -39,7 +39,7 @@ public class GameWindow extends Application {
         stage.setScene(scene);
 
         // Set mazeExit at a random index.
-        mazeExit = (int) (30 * Math.random() + 1); // + 1 to avoid Index 0
+        mazeExit = (int) (30 * Math.random() + 1); // + 1 to avoid Index 0.
         RecursiveDFS.runSearch(); // Run the search to find the Maze Exit.
 
         Sprite[] sprites = getSprites(); //Load the sprites from the res directory

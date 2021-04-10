@@ -15,7 +15,7 @@ import org.encog.util.simple.EncogUtility;
 /**
  * Class NNCharacterTask
  * Neural Network for the Characters.
- * Handles the construction and testing of the NN.
+ * Handles the construction, training and testing of the NN.
  *
  * @author John Shields - G00348436
  */
@@ -71,9 +71,9 @@ public class NNCharacterTask {
      * declareNetworkTopology
      * Build the Neural Network.
      *
-     * Layer 1: Input Layer, no Activation function, Bias = True, Neurons = 4
-     * Layer 2: Hidden Layer, Sigmoidal Activation function, Bias = True, Neurons = 2
-     * Layer 3: Output Layer, Sigmoidal Activation function, Bias = False, Neurons = 4
+     * Layer 1: Input Layer, no Activation Function, Bias = True, Neurons = 4
+     * Layer 2: Hidden Layer, Sigmoidal Activation Function, Bias = True, Neurons = 2
+     * Layer 3: Output Layer, Sigmoidal Activation Function, Bias = False, Neurons = 4
      *
      * @return basicNetwork
      */
@@ -107,7 +107,7 @@ public class NNCharacterTask {
         MLDataSet trainingSet = new BasicMLDataSet(data, expected);
 
         // Training the NN.
-        System.out.println("[INFO] Training the network...");
+        System.out.println("[INFO] Initialize Training...");
         // Set up Resilient Back Propagation for training the NN with the Data Set.
         ResilientPropagation train = new ResilientPropagation(basicNetwork, trainingSet);
         // Train with an error rate of 0.09
