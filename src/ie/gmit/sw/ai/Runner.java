@@ -9,6 +9,17 @@ public class Runner {
 	public static FIS intelligenceFCL;
 
 	public static void main(String[] args) {
+		/*
+		 * Setup the NN.
+		 * Declare Network Topology
+		 * Create the training data set
+		 * Train the NN
+		 * Test the NN
+		 * All done in NNCharacterTask.
+		 */
+		NNCharacterTask nn = new NNCharacterTask();
+		nn.neuralNetwork();
+
 		// Load and Parse FCL files.
 		tempRadiusFCL = FIS.load("./resources/fuzzy/tempRadius.fcl", true);
 		if(tempRadiusFCL == null) {
@@ -22,17 +33,6 @@ public class Runner {
 			return;
 		}
 		System.out.println("[INFO] intelligence.fcl loaded.");
-
-		/*
-		 * Setup the NN.
-		 * Declare Network Topology
-		 * Create the training data set
-		 * Train the NN
-		 * Test the NN
-		 * All done in NNCharacterTask.
-		 */
-		NNCharacterTask nn = new NNCharacterTask();
-		nn.neuralNetwork();
 
 		// Necessary try catch to get .jar file to run from CLI.
 		try {

@@ -1,5 +1,19 @@
-// FUNCTION BLOCK to analyses the Neural Network's actions.
-// John Shields - G00348436
+/**
+* FUNCTION BLOCK character
+* Analyses the Neural Network's decided actions.
+* @author John Shields - G00348436
+*
+* The terms for the input variable 'action' is the Neural Network's classification of the expected output Data.
+* Action's terms work with the Inference rules set to calculate the Defuzzify's output to decide
+* if the Neural Network's actions are intelligent or not.
+* The Defuzzifier uses COGS. This Defuzzifier was picked as the Singleton outputs worked best with an if/else statement.
+*
+* This FCL file works with the classes CharacterLogic and CharacterTask.
+* CharacterLogic is used to take in the variable action from CharacterManager and put them through the Defuzzier.
+* In CharacterTask, CharacterLogic is used to get Defuzzify's output to decide if the NN's actual actions are intelligent or not.
+* If they are intelligent the ghost character tells the player a more precise area of where the Maze Exit is than tempRadius.
+* The ghosts have the power to do this from a Recursive Depth-First Search that finds the Goal Node (mazeExit in GameWindow).
+*/
 
 FUNCTION_BLOCK character // Maps to a method
 
@@ -19,22 +33,28 @@ FUNCTION_BLOCK character // Maps to a method
         TERM run := 3;
      END_FUZZIFY
 
+    // Analysis on the NN's actions.
     DEFUZZIFY intelligence // method body
         TERM low := 10;
         TERM average := 20;
     	TERM high := 30;
     	TERM veryHigh := 40;
-    	METHOD : COGS;		// 'Center Of Gravity Sugeno' defuzzification method
+    	METHOD : COGS;		// 'Center Of Gravity Singletons' defuzzification method
     	DEFAULT := 0;		// Default value is 0 (if no rule activates defuzzifier)
     END_DEFUZZIFY
 
+    // Inference rules set.
     RULEBLOCK No1
     	AND : MIN;	// 'min' for 'and'
     	ACT : MIN;	// 'min' activation method
     	ACCU : MAX;	// 'max' accumulation method
+    	// if the NN decides to panic...
     	RULE 1 : IF action IS panic THEN intelligence IS low;
+    	// if the NN decides to attack...
     	RULE 2 : IF action IS attack THEN intelligence IS average;
+    	// if the NN decides to run...
     	RULE 3 : IF action IS run THEN intelligence IS high;
+    	// if the NN decides to hide...
     	RULE 4 : IF action IS hide THEN intelligence IS veryHigh;
     END_RULEBLOCK
 

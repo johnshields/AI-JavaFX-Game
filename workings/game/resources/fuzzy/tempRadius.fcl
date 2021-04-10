@@ -1,5 +1,22 @@
-// FUNCTION BLOCK to determinate the Player's tempRadius to the Maze Exit.
-// John Shields - G00348436
+/**
+* FUNCTION BLOCK tempRadius
+* Used to determinate the Player's temperature radius to the Maze Exit.
+* @author John Shields - G00348436
+*
+* The input variables are playerLocation and mazeExit.
+* Their terms work with the inference rules set to calculate the Defuzzify's output for the player's temperature radius with the Maze Exit.
+* The number values were worked out by declaring a variable named playerLocation in GameWindow.
+* playerLocation is used in the keyPressed method and is initialized to equal the sum of the player's currentRow and currentCol.
+* This tracks the player's index coordinates whenever a key is pressed.
+* The variable mazeExit in GameWindow is randomly picked between 1 and 30 when the game starts.
+* With this setup, a brute force approach was used to cover all possible maze exits for the inference rules.
+*
+* The Defuzzifier uses COGS. This Defuzzifier was picked as the Singleton outputs worked best with an if/else statement.
+*
+* This FCL file works with the classes TempRadius and MazeExitLocator.
+* TempRadius is used to take in the variables playerLocation and mazeExit in GameWindow and put them through the Defuzzier.
+* In MazeExitLocator, TempRadius is used to get Defuzzify's output to notify the player how close they are to the exit.
+*/
 
 FUNCTION_BLOCK tempRadius // Maps to a method
 
@@ -32,7 +49,7 @@ FUNCTION_BLOCK tempRadius // Maps to a method
         TERM indexSpotThree := (20,0) (25,1) (30,0);
      END_FUZZIFY
 
-    // temperatures tell how close the player is to the mazeExit.
+    // Temperatures tell how close the player is to the mazeExit.
     DEFUZZIFY player // method body
         TERM frostbite := 180;
         TERM freezing := 150;
@@ -42,7 +59,7 @@ FUNCTION_BLOCK tempRadius // Maps to a method
     	TERM warm := 30;
     	TERM hot := 20;
     	TERM redHot := 10;
-    	METHOD : COGS;		// 'Center Of Gravity Sugeno' defuzzification method
+    	METHOD : COGS;		// 'Center Of Gravity Singletons' defuzzification method
     	DEFAULT := 0;		// Default value is 0 (if no rule activates defuzzifier)
     END_DEFUZZIFY
 
