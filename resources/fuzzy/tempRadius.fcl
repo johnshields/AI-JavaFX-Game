@@ -1,6 +1,6 @@
 /**
 * FUNCTION BLOCK tempRadius
-* Used to determinate the Player's temperature radius to the Maze Exit.
+* Used to determine the Player's temperature radius to the Maze Exit.
 * @author John Shields - G00348436
 *
 * The input variables are playerLocation and mazeExit.

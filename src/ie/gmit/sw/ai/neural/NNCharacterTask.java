@@ -71,9 +71,9 @@ public class NNCharacterTask {
      * declareNetworkTopology
      * Build the Neural Network.
      *
-     * Layer 1: Input Layer, no Activation Function, Bias = True, Neurons = 4
-     * Layer 2: Hidden Layer, Sigmoidal Activation Function, Bias = True, Neurons = 2
-     * Layer 3: Output Layer, Sigmoidal Activation Function, Bias = False, Neurons = 4
+     * Layer 1: Input Layer, no Activation Function, Bias = True, Nodes = 4
+     * Layer 2: Hidden Layer, Sigmoidal Activation Function, Bias = True, Nodes = 2
+     * Layer 3: Output Layer, Sigmoidal Activation Function, Bias = False, Nodes = 4
      *
      * @return basicNetwork
      */
