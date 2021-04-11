@@ -24,7 +24,7 @@ alt="GMIT Logo" width="500" height="200"/>
 # About the Game
 JavaFX Game that uses the AI technologies; Fuzzy Logic and Neural Networks to enhance the experience and to control a set of characters moving randomly through a game model.
 
-View the [***Design & Implemation Rationale***](https://github.com/johnshields/AI-JavaFX-Game/blob/main/workings/README.pdf) for more detail.
+View the [***Design & Implementation Rationale***](https://github.com/johnshields/AI-JavaFX-Game/blob/main/workings/README.pdf) for more detail.
 # Run the Game
 ### Requirements
 * [Git](https://git-scm.com/downloads)
