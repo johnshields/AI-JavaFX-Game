@@ -24,6 +24,7 @@ alt="GMIT Logo" width="500" height="200"/>
 # About the Game
 JavaFX Game that uses the AI technologies; Fuzzy Logic and Neural Networks to enhance the experience and to control a set of characters moving randomly through a game model.
 
+View the [***Design & Implemation Rationale***](https://github.com/johnshields/AI-JavaFX-Game/blob/main/workings/README.pdf) for more detail.
 # Run the Game
 ### Requirements
 * [Git](https://git-scm.com/downloads)
@@ -43,12 +44,12 @@ $ cd workings/game
 ```
 ### Windows
 ```bash
-$ java --module-path .;/Java/javafx-sdk-15.0.1/lib/;/Java/ai/encog/;/Java/ai/fuzzy/ --module gmit.software/ie.gmit.sw.ai.Runner
+$ java --module-path .;/your_javaFX/lib/;/your_encog/;/your_jfuzzylogic/ --module gmit.software/ie.gmit.sw.ai.Runner
 ```
 
 ### Linux & Mac
 ```bash
-$ java --module-path .:/Java/javafx-sdk-15.0.1/lib/:/Java/ai/encog/:/Java/ai/fuzzy/ --module gmit.software/ie.gmit.sw.ai.Runner
+$ java --module-path .:/your_javaFX/lib/:/your_encog/:/your_jfuzzylogic/ --module gmit.software/ie.gmit.sw.ai.Runner
 ```
 
 ***
