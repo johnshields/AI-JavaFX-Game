@@ -17,7 +17,8 @@ alt="GMIT Logo" width="500" height="200"/>
 | **Module**              | Artificial Intelligence |
 | **Institute**           | [Galway-Mayo Institute of Technology](https://www.gmit.ie/) |
 | **Student**             | [John Shields](https://github.com/johnshields) |
-| **Module Lecturer**      | Dr. John Healy |
+| **Module Lecturer**     | Dr. John Healy |
+| **Grade Achieved**      | 87% |
 
 ***
 
